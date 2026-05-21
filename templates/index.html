@@ -3,137 +3,216 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Voznota – TikTok Analyzer</title>
+<title>Voznota – PAM Dashboard</title>
 <style>
   :root {
     --bg: #0f0f1a; --card: #1a1a2e; --accent: #e94560;
     --blue: #03b2f8; --text: #e0e0e0; --muted: #888;
     --success: #00d68f; --warn: #ffaa00; --error: #ff4444;
+    --purple: #a855f7; --orange: #f97316;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
-  header { background: var(--card); padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid var(--accent); position: sticky; top: 0; z-index: 100; }
-  header h1 { font-size: 22px; color: white; }
-  header span { font-size: 13px; color: var(--muted); }
+  header { background: var(--card); padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid var(--accent); position: sticky; top: 0; z-index: 100; }
+  header h1 { font-size: 20px; color: white; }
+  header span { font-size: 12px; color: var(--muted); }
   .live-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; animation: pulse 1.5s infinite; margin-left: auto; }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-  .submit-card { background: var(--card); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
-  .submit-card h2 { font-size: 16px; color: var(--blue); margin-bottom: 16px; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+  .tabs { display: flex; gap: 0; background: var(--card); border-bottom: 1px solid #222; }
+  .tab { padding: 12px 20px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--muted); border-bottom: 3px solid transparent; transition: all .2s; }
+  .tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+  .card { background: var(--card); border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+  .card h2 { font-size: 14px; color: var(--blue); margin-bottom: 14px; text-transform: uppercase; letter-spacing: .5px; }
   .input-row { display: flex; gap: 10px; }
-  .input-row input { flex: 1; background: #0f0f1a; border: 1px solid #333; border-radius: 10px; padding: 12px 16px; color: white; font-size: 15px; outline: none; transition: border-color .2s; }
+  .input-row input { flex: 1; background: #0f0f1a; border: 1px solid #333; border-radius: 10px; padding: 12px 14px; color: white; font-size: 15px; outline: none; transition: border-color .2s; }
   .input-row input:focus { border-color: var(--blue); }
-  .btn { background: var(--accent); color: white; border: none; border-radius: 10px; padding: 12px 24px; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .2s; white-space: nowrap; }
-  .btn:hover { opacity: 0.85; }
-  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .options { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+  .btn { background: var(--accent); color: white; border: none; border-radius: 10px; padding: 12px 20px; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity .2s; white-space: nowrap; }
+  .btn:hover { opacity:.85; }
+  .btn:disabled { opacity:.4; cursor:not-allowed; }
+  .btn-sm { padding: 8px 14px; font-size: 12px; }
+  .btn-purple { background: var(--purple); }
+  .btn-outline { background: transparent; border: 1px solid var(--blue); color: var(--blue); }
+  .options { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
   .options label { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); cursor: pointer; }
   .options input[type=checkbox] { accent-color: var(--accent); width: 16px; height: 16px; }
-  .section-title { font-size: 14px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-  .video-card { background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 16px; border-left: 4px solid var(--muted); transition: border-color .3s; }
+  .level-selector { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .level-btn { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid #444; background: #111; color: var(--muted); transition: all .2s; }
+  .level-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+  .section-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .video-card { background: var(--card); border-radius: 14px; padding: 18px; margin-bottom: 14px; border-left: 4px solid var(--muted); transition: border-color .3s; }
   .video-card.done { border-left-color: var(--success); }
   .video-card.error { border-left-color: var(--error); }
-  .video-card.analyzing, .video-card.downloading, .video-card.extracting, .video-card.packaging, .video-card.notifying { border-left-color: var(--blue); }
-  .card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
-  .card-title { font-size: 15px; font-weight: 600; flex: 1; }
-  .card-author { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .status-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; text-transform: uppercase; }
+  .video-card.analyzing,.video-card.downloading,.video-card.extracting,.video-card.packaging,.video-card.notifying,.video-card.orchestrating { border-left-color: var(--blue); }
+  .card-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .card-title { font-size: 14px; font-weight: 600; flex: 1; }
+  .card-author { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .status-badge { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; text-transform: uppercase; }
   .status-pending { background: #333; color: var(--muted); }
-  .status-downloading, .status-extracting, .status-analyzing, .status-packaging, .status-notifying { background: #0a2a40; color: var(--blue); }
+  .status-downloading,.status-extracting,.status-analyzing,.status-packaging,.status-notifying,.status-orchestrating { background: #0a2a40; color: var(--blue); }
   .status-done { background: #003d27; color: var(--success); }
   .status-error { background: #3d0000; color: var(--error); }
-  .progress-steps { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-  .step { font-size: 11px; padding: 3px 8px; border-radius: 6px; background: #222; color: var(--muted); }
+  .progress-steps { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+  .step { font-size: 10px; padding: 3px 7px; border-radius: 6px; background: #222; color: var(--muted); }
   .step.active { background: var(--blue); color: white; }
   .step.done { background: var(--success); color: white; }
-  .summary { font-size: 13px; color: #bbb; line-height: 1.5; margin-bottom: 10px; max-height: 80px; overflow: hidden; position: relative; }
+  .summary { font-size: 13px; color: #bbb; line-height: 1.5; margin-bottom: 8px; max-height: 72px; overflow: hidden; }
   .summary.expanded { max-height: none; }
-  .expand-btn { font-size: 12px; color: var(--blue); cursor: pointer; background: none; border: none; padding: 0; }
-  .meta-row { display: flex; gap: 16px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
-  .meta-row span { display: flex; align-items: center; gap: 4px; }
-  .download-btn { margin-top: 10px; font-size: 13px; background: #1e2d40; color: var(--blue); border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; text-decoration: none; display: inline-block; }
-  .download-btn:hover { background: #0a3a5a; }
-  .error-msg { font-size: 12px; color: var(--error); background: #1a0000; padding: 8px 12px; border-radius: 8px; margin-top: 8px; }
-  .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
-  .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
-  .toast { position: fixed; bottom: 20px; right: 20px; background: var(--card); color: white; padding: 12px 20px; border-radius: 10px; font-size: 14px; border-left: 4px solid var(--blue); display: none; z-index: 999; }
+  .expand-btn { font-size: 11px; color: var(--blue); cursor: pointer; background: none; border: none; padding: 0; }
+  .meta-row { display: flex; gap: 14px; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
+  .download-btn { margin-top: 10px; font-size: 12px; background: #1e2d40; color: var(--blue); border: none; border-radius: 8px; padding: 7px 12px; cursor: pointer; text-decoration: none; display: inline-block; }
+  .error-msg { font-size: 12px; color: var(--error); background: #1a0000; padding: 8px 10px; border-radius: 8px; margin-top: 6px; }
+  .empty-state { text-align: center; padding: 48px 20px; color: var(--muted); }
+  .brain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:600px){ .brain-grid { grid-template-columns: 1fr; } }
+  .stat-card { background: #111; border-radius: 10px; padding: 14px; text-align: center; }
+  .stat-card .stat-num { font-size: 32px; font-weight: 900; color: var(--blue); }
+  .stat-card .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .pattern-item { padding: 8px 12px; background: #111; border-radius: 8px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+  .pattern-bar { height: 4px; background: #222; border-radius: 2px; margin-top: 4px; }
+  .pattern-fill { height: 4px; background: var(--purple); border-radius: 2px; }
+  .prediction-box { background: #111; border-radius: 10px; padding: 16px; font-size: 13px; line-height: 1.6; white-space: pre-wrap; color: #ccc; }
+  .toast { position: fixed; bottom: 20px; right: 20px; background: var(--card); color: white; padding: 12px 18px; border-radius: 10px; font-size: 13px; border-left: 4px solid var(--blue); display: none; z-index: 999; max-width: 300px; }
 </style>
 </head>
 <body>
 <header>
   <div>
     <h1>🎵 Voznota</h1>
-    <span>TikTok Analyzer con IA</span>
+    <span>PAM · Plan de Automatización Multinivel</span>
   </div>
   <div class="live-dot" title="En vivo"></div>
 </header>
 
+<div class="tabs">
+  <div class="tab active" onclick="showTab('videos')">📹 Videos</div>
+  <div class="tab" onclick="showTab('brain')">🧠 Brain</div>
+</div>
+
+<!-- VIDEOS TAB -->
+<div id="tab-videos" class="tab-content active">
 <div class="container">
-  <div class="submit-card">
+  <div class="card">
     <h2>➕ Analizar nuevo video</h2>
     <div class="input-row">
-      <input type="text" id="urlInput" placeholder="Pega el link de TikTok aquí..." />
+      <input type="text" id="urlInput" placeholder="Pega el link de TikTok..." />
       <button class="btn" id="submitBtn" onclick="submitUrl()">Analizar</button>
     </div>
     <div class="options">
       <label><input type="checkbox" id="optEmail" checked> 📧 Email</label>
       <label><input type="checkbox" id="optDiscord" checked> 💬 Discord</label>
+      <span style="font-size:12px;color:var(--muted);margin-left:8px;">Nivel PAM:</span>
+    </div>
+    <div class="level-selector">
+      <div class="level-btn" onclick="setLevel(1)">N1 Básico</div>
+      <div class="level-btn" onclick="setLevel(2)">N2 Obsidian</div>
+      <div class="level-btn" onclick="setLevel(3)">N3 n8n</div>
+      <div class="level-btn" onclick="setLevel(4)">N4 Multi-Agente</div>
+      <div class="level-btn active" onclick="setLevel(5)">N5 Full AI</div>
     </div>
   </div>
 
-  <div class="section-title">Historial de videos</div>
+  <div class="section-title">Historial</div>
   <div id="videoList"></div>
   <div id="emptyState" class="empty-state" style="display:none;">
-    <div class="icon">🎬</div>
-    <p>No hay videos analizados aún.<br>Pega un link de TikTok arriba para comenzar.</p>
+    <div style="font-size:40px;margin-bottom:12px;">🎬</div>
+    <p>No hay videos aún. Pega un link arriba para comenzar.</p>
   </div>
+</div>
+</div>
+
+<!-- BRAIN TAB -->
+<div id="tab-brain" class="tab-content">
+<div class="container">
+  <div class="card">
+    <h2>🧠 Estado del Cerebro</h2>
+    <div class="brain-grid" id="brainStats">
+      <div class="stat-card"><div class="stat-num" id="brainPatterns">—</div><div class="stat-label">Patrones aprendidos</div></div>
+      <div class="stat-card"><div class="stat-num" id="brainSessions">—</div><div class="stat-label">Sesiones registradas</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🔥 Top Patrones</h2>
+    <div id="topPatterns"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔮 Predicción de Sesión</h2>
+    <div style="display:flex;gap:10px;margin-bottom:12px;">
+      <button class="btn btn-purple btn-sm" onclick="generatePrediction()">Generar predicción con Opus</button>
+    </div>
+    <div class="prediction-box" id="predictionBox">Sin predicciones aún. Procesa videos primero.</div>
+  </div>
+
+  <div class="card">
+    <h2>📊 Perfil de Intereses</h2>
+    <div id="profileDisplay"></div>
+  </div>
+</div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const STEPS = ['pending','downloading','extracting','analyzing','packaging','notifying','done'];
+let selectedLevel = 5;
+
+const STEPS = ['pending','downloading','extracting','analyzing','orchestrating','packaging','notifying','done'];
 const STEP_LABELS = {
-  pending: '⏳ En cola',
-  downloading: '⬇️ Descargando',
-  extracting: '🎵 Extrayendo audio',
-  analyzing: '🤖 Analizando con Claude',
-  packaging: '📦 Empaquetando',
-  notifying: '📤 Notificando',
-  done: '✅ Listo'
+  pending:'⏳ Cola', downloading:'⬇️ Descarga', extracting:'🎵 Audio',
+  analyzing:'🤖 Claude', orchestrating:'🌐 Opus', packaging:'📦 ZIP',
+  notifying:'📤 Envío', done:'✅ Listo'
 };
+
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'brain') loadBrain();
+}
+
+function setLevel(n) {
+  selectedLevel = n;
+  document.querySelectorAll('.level-btn').forEach((b,i) => {
+    b.classList.toggle('active', i === n-1);
+  });
+}
 
 function showToast(msg, color='#03b2f8') {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.style.borderColor = color;
   t.style.display = 'block';
-  setTimeout(() => t.style.display = 'none', 3000);
+  setTimeout(() => t.style.display = 'none', 3500);
 }
 
 async function submitUrl() {
   const url = document.getElementById('urlInput').value.trim();
   if (!url) { showToast('Pega un link de TikTok primero', '#ff4444'); return; }
   const btn = document.getElementById('submitBtn');
-  btn.disabled = true; btn.textContent = 'Procesando...';
-  const sendEmail = document.getElementById('optEmail').checked;
-  const sendDiscord = document.getElementById('optDiscord').checked;
+  btn.disabled = true; btn.textContent = 'Enviando...';
   try {
     const res = await fetch('/api/analyze', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({url, send_email: sendEmail, send_discord: sendDiscord})
+      body: JSON.stringify({
+        url,
+        send_email: document.getElementById('optEmail').checked,
+        send_discord: document.getElementById('optDiscord').checked,
+        level: selectedLevel,
+      })
     });
     const data = await res.json();
     if (data.ok) {
       document.getElementById('urlInput').value = '';
-      showToast('Video en cola para análisis ✓');
+      showToast(`En cola · Nivel ${selectedLevel} ✓`);
     } else {
-      showToast(data.error || 'Error desconocido', '#ff4444');
+      showToast(data.error || 'Error', '#ff4444');
     }
-  } catch(e) {
-    showToast('Error de conexión', '#ff4444');
-  }
+  } catch(e) { showToast('Error de conexión', '#ff4444'); }
   btn.disabled = false; btn.textContent = 'Analizar';
 }
 
@@ -154,37 +233,33 @@ function renderCard(v) {
   const steps = STEPS.slice(0, -1);
   const stepsHtml = steps.map(s => `<span class="step ${stepClass(s, v.status)}">${STEP_LABELS[s]}</span>`).join('');
   const summaryHtml = v.summary
-    ? `<div class="summary" id="sum_${v.id}">${v.summary.replace(/\n/g,'<br>')}</div>
-       <button class="expand-btn" onclick="toggleSum(${v.id})">Ver más ↓</button>`
+    ? `<div class="summary" id="sum_${v.id}">${v.summary.replace(/\n/g,'<br>').slice(0,300)}...</div>
+       <button class="expand-btn" onclick="toggleSum(${v.id})">Leer más ↓</button>`
     : '';
-  const metaHtml = `<div class="meta-row">
-    ${v.author ? `<span>👤 @${v.author}</span>` : ''}
-    ${v.duration ? `<span>⏱ ${v.duration}s</span>` : ''}
-    <span>🕐 ${v.created_at ? v.created_at.slice(0,16).replace('T',' ') : ''}</span>
-  </div>`;
   const dlBtn = v.zip_path
-    ? `<a class="download-btn" href="/api/download/${v.id}" download>⬇️ Descargar ZIP</a>` : '';
-  const errHtml = v.error ? `<div class="error-msg">⚠️ ${v.error}</div>` : '';
+    ? `<a class="download-btn" href="/api/download/${v.id}" download>⬇️ ZIP</a>` : '';
+  const errHtml = v.error ? `<div class="error-msg">⚠️ ${v.error.slice(0,200)}</div>` : '';
   return `
   <div class="video-card ${v.status}" id="card_${v.id}">
     <div class="card-header">
       <div style="flex:1">
-        <div class="card-title">${v.title || v.url}</div>
-        <div class="card-author">${v.author ? '@' + v.author : ''}</div>
+        <div class="card-title">${v.title || v.url.slice(0,60)}</div>
+        <div class="card-author">${v.author ? '@' + v.author : ''}${v.duration ? ' · ' + v.duration + 's' : ''}</div>
       </div>
       <span class="status-badge status-${v.status}">${STEP_LABELS[v.status] || v.status}</span>
     </div>
     <div class="progress-steps">${stepsHtml}</div>
     ${summaryHtml}
-    ${metaHtml}
-    ${dlBtn}
-    ${errHtml}
+    <div class="meta-row" style="margin-top:8px;">
+      <span>🕐 ${(v.created_at||'').slice(0,16).replace('T',' ')}</span>
+      ${v.view_count ? '<span>👁 ' + Number(v.view_count).toLocaleString() + '</span>' : ''}
+    </div>
+    ${dlBtn} ${errHtml}
   </div>`;
 }
 
 function toggleSum(id) {
-  const el = document.getElementById('sum_' + id);
-  el.classList.toggle('expanded');
+  document.getElementById('sum_' + id).classList.toggle('expanded');
 }
 
 async function loadVideos() {
@@ -192,13 +267,57 @@ async function loadVideos() {
   const videos = await res.json();
   const list = document.getElementById('videoList');
   const empty = document.getElementById('emptyState');
-  if (!videos.length) {
-    list.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
+  if (!videos.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
   empty.style.display = 'none';
   list.innerHTML = videos.map(renderCard).join('');
+}
+
+async function loadBrain() {
+  const res = await fetch('/api/brain');
+  const b = await res.json();
+  document.getElementById('brainPatterns').textContent = b.pattern_count || 0;
+  document.getElementById('brainSessions').textContent = b.session_count || 0;
+
+  const tp = document.getElementById('topPatterns');
+  if (b.top_patterns && b.top_patterns.length) {
+    tp.innerHTML = b.top_patterns.map(p => `
+      <div class="pattern-item">
+        <div>
+          <div>${p.pattern_type}: <strong>${p.pattern_data}</strong></div>
+          <div class="pattern-bar"><div class="pattern-fill" style="width:${(p.confidence*100).toFixed(0)}%"></div></div>
+        </div>
+        <span style="color:var(--purple);font-size:11px;">${(p.confidence*100).toFixed(0)}%</span>
+      </div>`).join('');
+  } else {
+    tp.innerHTML = '<p style="color:var(--muted);font-size:13px;">Sin patrones aún.</p>';
+  }
+
+  if (b.last_prediction) {
+    document.getElementById('predictionBox').textContent = b.last_prediction.prediction_text;
+  }
+
+  const profile = b.profile || {};
+  const pd = document.getElementById('profileDisplay');
+  if (profile.total_processed) {
+    const cats = Object.entries(profile.top_categories || {}).map(([k,v]) => `<span style="background:#1a2a3a;padding:3px 8px;border-radius:6px;font-size:12px;">${k} (${v})</span>`).join(' ');
+    pd.innerHTML = `<div style="margin-bottom:10px;">${cats}</div>
+      <div style="font-size:12px;color:var(--muted);">Potencial viral promedio buscado: <strong style="color:var(--orange);">${profile.avg_viral_potential}/10</strong></div>`;
+  } else {
+    pd.innerHTML = '<p style="color:var(--muted);font-size:13px;">Procesa videos para construir tu perfil.</p>';
+  }
+}
+
+async function generatePrediction() {
+  const box = document.getElementById('predictionBox');
+  box.textContent = '🔮 Generando con Opus 4.7...';
+  try {
+    const res = await fetch('/api/brain/predict', { method: 'POST' });
+    const data = await res.json();
+    box.textContent = data.predictions || 'Sin datos suficientes aún.';
+    showToast('Predicción generada ✓');
+  } catch(e) {
+    box.textContent = 'Error generando predicción.';
+  }
 }
 
 loadVideos();

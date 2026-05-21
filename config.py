@@ -17,7 +17,21 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "")
 EMAIL_RECIPIENT = os.getenv("EMAIL_RECIPIENT", "")
 DASHBOARD_PORT = int(os.getenv("DASHBOARD_PORT", 5000))
 ANALYSIS_LANGUAGE = os.getenv("ANALYSIS_LANGUAGE", "es")
+
+# Fast model for transcription
 CLAUDE_MODEL = "claude-sonnet-4-6"
+# Heavy model for deep analysis, orchestration, pattern learning
+CLAUDE_OPUS_MODEL = "claude-opus-4-7"
+
+# Obsidian vault path (set in .env)
+OBSIDIAN_VAULT = os.getenv("OBSIDIAN_VAULT_PATH", "")
+
+# n8n webhook endpoints
+N8N_WEBHOOK_URL = os.getenv("N8N_WEBHOOK_URL", "")
+N8N_INCOMING_PORT = int(os.getenv("N8N_INCOMING_PORT", 5001))
+
+# API auth token for isolated API access
+API_SECRET_TOKEN = os.getenv("API_SECRET_TOKEN", "")
 
 for d in [DOWNLOAD_DIR, OUTPUT_DIR, LOG_DIR]:
     d.mkdir(parents=True, exist_ok=True)
