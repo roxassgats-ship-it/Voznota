@@ -1,0 +1,19 @@
+{
+  "name": "voznota",
+  "version": "1.0.0",
+  "description": "Mobile YouTube downloader & converter with in-app player",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
