@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f0f14" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Voznota</title>
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="logo">
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="13" stroke="#e63946" stroke-width="2"/>
+        <polygon points="11,9 21,14 11,19" fill="#e63946"/>
+      </svg>
+      <span>Voznota</span>
+    </div>
+    <button id="install-btn" class="btn-install hidden">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Instalar
+    </button>
+  </header>
+
+  <!-- Tab bar -->
+  <nav class="tab-bar">
+    <button class="tab active" data-tab="downloader">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Descargar
+    </button>
+    <button class="tab" data-tab="transcribe">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 013 3v7a3 3 0 01-6 0V5a3 3 0 013-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v3M8 22h8"/></svg>
+      Transcribir
+    </button>
+    <button class="tab" data-tab="library">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+      Biblioteca
+    </button>
+  </nav>
+
+  <!-- ===== DOWNLOADER TAB ===== -->
+  <main id="view-downloader" class="view active">
+
+    <section class="url-section">
+      <p class="section-hint">Pega el link de YouTube y elige el formato</p>
+      <div class="url-input-row">
+        <input id="url-input" type="url" inputmode="url" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="https://youtube.com/watch?v=..." />
+        <button id="paste-btn" class="btn-icon" aria-label="Pegar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+        </button>
+        <button id="fetch-btn" class="btn-fetch">
+          <span id="fetch-label">Obtener</span>
+          <span id="fetch-spinner" class="spinner hidden"></span>
+        </button>
+      </div>
+      <div id="fetch-error" class="error-msg hidden"></div>
+    </section>
+
+    <!-- Video info card -->
+    <section id="video-card" class="video-card hidden">
+      <div class="vc-thumb-wrap">
+        <img id="vc-thumb" src="" alt="" loading="lazy" />
+        <span id="vc-duration" class="duration-badge"></span>
+      </div>
+      <div class="vc-meta">
+        <p id="vc-title" class="vc-title"></p>
+        <p id="vc-channel" class="vc-channel"></p>
+      </div>
+    </section>
+
+    <!-- Format table (i2mate style) -->
+    <section id="formats-section" class="formats-section hidden">
+
+      <!-- Video formats -->
+      <div class="formats-group">
+        <div class="formats-group-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Video
+        </div>
+        <div id="video-format-rows"></div>
+      </div>
+
+      <!-- Audio formats -->
+      <div class="formats-group" style="margin-top:12px">
+        <div class="formats-group-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          Solo Audio
+        </div>
+        <div id="audio-format-rows"></div>
+      </div>
+    </section>
+
+    <!-- Download queue -->
+    <section id="queue-section" class="queue-section">
+      <div id="queue-list"></div>
+    </section>
+
+  </main>
+
+  <!-- ===== TRANSCRIBE TAB ===== -->
+  <main id="view-transcribe" class="view hidden">
+
+    <section class="section-pad">
+      <p class="section-hint">Sube un video o audio para convertirlo a texto</p>
+
+      <!-- File drop zone -->
+      <div id="drop-zone" class="drop-zone">
+        <input id="file-input" type="file" accept="video/*,audio/*,.mkv,.flac,.ogg,.wav,.m4a" hidden />
+        <div id="drop-zone-inner">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          <p>Arrastra tu archivo aquí</p>
+          <small>o</small>
+          <button class="btn-secondary" id="pick-file-btn">Seleccionar archivo</button>
+          <small id="selected-filename" class="selected-file hidden"></small>
+        </div>
+      </div>
+
+      <!-- Options -->
+      <div class="transcribe-options">
+        <div class="option-group">
+          <label class="option-label" for="lang-select">Idioma del video</label>
+          <select id="lang-select" class="select-input">
+            <option value="auto">Auto-detectar</option>
+            <option value="es">Español</option>
+            <option value="en">English</option>
+            <option value="pt">Português</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="ja">日本語</option>
+            <option value="zh">中文</option>
+          </select>
+        </div>
+        <div class="option-group">
+          <label class="option-label" for="model-select">Precisión</label>
+          <select id="model-select" class="select-input">
+            <option value="tiny">Rápido (menor precisión)</option>
+            <option value="base" selected>Equilibrado</option>
+            <option value="small">Alta precisión</option>
+            <option value="medium">Máxima precisión (lento)</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="transcribe-btn" class="btn-download" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 013 3v7a3 3 0 01-6 0V5a3 3 0 013-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>
+        Transcribir
+      </button>
+
+      <div id="transcribe-progress" class="transcribe-progress hidden">
+        <div class="spinner-lg"></div>
+        <p id="transcribe-status">Procesando audio...</p>
+      </div>
+
+      <div id="transcribe-error" class="error-msg hidden"></div>
+    </section>
+
+    <!-- Result -->
+    <section id="transcribe-result" class="transcribe-result hidden section-pad">
+      <div class="result-header">
+        <div class="result-meta">
+          <span id="result-lang" class="badge"></span>
+          <span id="result-duration" class="badge badge-gray"></span>
+        </div>
+        <div class="result-actions">
+          <button id="copy-btn" class="btn-sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar
+          </button>
+          <button id="download-txt-btn" class="btn-sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            .TXT
+          </button>
+          <button id="send-webhook-btn" class="btn-sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Enviar
+          </button>
+        </div>
+      </div>
+
+      <textarea id="transcript-text" class="transcript-area" spellcheck="false" placeholder="El texto aparecerá aquí..."></textarea>
+
+      <!-- Segments toggle -->
+      <details class="segments-details">
+        <summary>Ver segmentos con marcas de tiempo</summary>
+        <div id="segments-list" class="segments-list"></div>
+      </details>
+
+      <!-- Webhook panel -->
+      <div id="webhook-panel" class="webhook-panel hidden">
+        <div class="option-group">
+          <label class="option-label" for="webhook-url">URL del endpoint (POST)</label>
+          <input id="webhook-url" type="url" class="url-input-sm" placeholder="https://tu-api.com/transcripciones" />
+        </div>
+        <div class="option-group">
+          <label class="option-label" for="webhook-field">Campo del texto</label>
+          <input id="webhook-field" type="text" class="url-input-sm" value="text" placeholder="text" />
+        </div>
+        <button id="send-now-btn" class="btn-primary-sm">Enviar ahora</button>
+        <span id="webhook-status" class="webhook-status"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== LIBRARY TAB ===== -->
+  <main id="view-library" class="view hidden">
+    <div id="library-empty" class="empty-state">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+      <p>Sin descargas aún</p>
+      <small>Los videos descargados aparecerán aquí</small>
+    </div>
+    <div id="library-list"></div>
+  </main>
+
+  <!-- ===== In-App Player ===== -->
+  <div id="player-overlay" class="player-overlay hidden">
+    <div class="player-container">
+      <div class="player-header">
+        <button id="player-close" class="btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <span id="player-title" class="player-title-text"></span>
+      </div>
+      <video id="player-video" class="player-video" controls playsinline preload="metadata"></video>
+      <audio id="player-audio" class="player-audio" controls preload="metadata" hidden></audio>
+      <div class="player-controls">
+        <div class="player-speed">
+          <label class="option-label" for="speed-select">Velocidad</label>
+          <select id="speed-select" class="select-input small">
+            <option value="0.5">0.5×</option>
+            <option value="0.75">0.75×</option>
+            <option value="1" selected>1×</option>
+            <option value="1.25">1.25×</option>
+            <option value="1.5">1.5×</option>
+            <option value="2">2×</option>
+          </select>
+        </div>
+        <a id="player-download-link" class="btn-secondary" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Guardar
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #app -->
+
+<script src="/js/api.js"></script>
+<script src="/js/ws.js"></script>
+<script src="/js/library.js"></script>
+<script src="/js/player.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/transcribe.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
