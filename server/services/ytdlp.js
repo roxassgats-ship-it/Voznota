@@ -20,14 +20,7 @@ function getInfo(url) {
       if (code !== 0) return reject(new Error(stderr || 'yt-dlp info failed'));
       try {
         const data = JSON.parse(stdout);
-        const qualities = extractQualities(data);
-        resolve({
-          title: data.title || 'Unknown',
-          channel: data.uploader || data.channel || '',
-          duration: data.duration || 0,
-          thumbnail: data.thumbnail || null,
-          availableQualities: qualities,
-        });
+        resolve(buildInfo(data));
       } catch (e) {
         reject(new Error('Failed to parse yt-dlp output'));
       }
@@ -36,17 +29,76 @@ function getInfo(url) {
   });
 }
 
-function extractQualities(data) {
-  const heights = new Set();
-  if (Array.isArray(data.formats)) {
-    data.formats.forEach(f => { if (f.height) heights.add(f.height); });
+function buildInfo(data) {
+  const formats = Array.isArray(data.formats) ? data.formats : [];
+
+  // Collect best video+audio combos per height
+  const videoRows = buildVideoRows(formats, data);
+  // Collect audio-only rows
+  const audioRows = buildAudioRows();
+
+  return {
+    title: data.title || 'Unknown',
+    channel: data.uploader || data.channel || '',
+    duration: data.duration || 0,
+    thumbnail: data.thumbnail || null,
+    videoRows,
+    audioRows,
+    // legacy field for backward compat
+    availableQualities: ['best', ...videoRows.map(r => r.quality)],
+  };
+}
+
+function buildVideoRows(formats, data) {
+  // Heights we offer
+  const targets = [
+    { label: 'Mejor calidad', quality: 'best' },
+    { label: '1080p', quality: '1080p', height: 1080 },
+    { label: '720p',  quality: '720p',  height: 720 },
+    { label: '480p',  quality: '480p',  height: 480 },
+    { label: '360p',  quality: '360p',  height: 360 },
+  ];
+
+  // Which heights actually exist in this video
+  const availHeights = new Set(formats.filter(f => f.height).map(f => f.height));
+
+  const rows = [];
+  for (const t of targets) {
+    if (t.height && ![...availHeights].some(h => h >= t.height)) continue;
+
+    // Estimate file size: find best matching format for this height
+    let sizeMB = null;
+    if (t.height) {
+      const vf = formats
+        .filter(f => f.height && f.height <= t.height && f.vcodec && f.vcodec !== 'none')
+        .sort((a, b) => (b.height || 0) - (a.height || 0))[0];
+      const af = formats
+        .filter(f => f.acodec && f.acodec !== 'none' && (!f.vcodec || f.vcodec === 'none'))
+        .sort((a, b) => (b.abr || 0) - (a.abr || 0))[0];
+      const totalBytes = (vf?.filesize || vf?.filesize_approx || 0) +
+                         (af?.filesize || af?.filesize_approx || 0);
+      if (totalBytes > 0) sizeMB = (totalBytes / 1e6).toFixed(1);
+    } else if (data.filesize || data.filesize_approx) {
+      sizeMB = ((data.filesize || data.filesize_approx) / 1e6).toFixed(1);
+    }
+
+    rows.push({
+      quality: t.quality,
+      label: t.label,
+      sizeMB,
+      formats: ['mp4', 'webm', 'mkv'],
+    });
   }
-  const tiers = [360, 480, 720, 1080];
-  const available = ['best'];
-  for (const t of tiers) {
-    if ([...heights].some(h => h >= t)) available.push(`${t}p`);
-  }
-  return available;
+
+  return rows;
+}
+
+function buildAudioRows() {
+  return [
+    { quality: 'best', label: 'Alta calidad (320k)', formats: ['mp3', 'aac', 'm4a'] },
+    { quality: 'best', label: 'Estándar (128k)',     formats: ['mp3', 'ogg'] },
+    { quality: 'best', label: 'Sin pérdida',         formats: ['flac', 'wav'] },
+  ];
 }
 
 function download(job) {
@@ -93,11 +145,9 @@ function download(job) {
         const trimmed = line.trim();
         if (!trimmed) continue;
 
-        // Parse progress line: bytes total speed eta percent
         const parts = trimmed.split(/\s+/);
         if (parts.length >= 5) {
-          const percentStr = parts[4];
-          const pct = parseFloat(percentStr);
+          const pct = parseFloat(parts[4]);
           if (!isNaN(pct)) {
             jobManager.update(job.id, {
               percent: Math.round(pct),
@@ -107,7 +157,6 @@ function download(job) {
           }
         }
 
-        // Detect output filename
         const destMatch = trimmed.match(/\[download\] Destination: (.+)/) ||
                           trimmed.match(/\[Merger\] Merging formats into "(.+)"/) ||
                           trimmed.match(/\[ExtractAudio\] Destination: (.+)/) ||
@@ -118,10 +167,8 @@ function download(job) {
 
     proc.stderr.on('data', data => {
       const text = data.toString();
-      if (text.includes('[download] Destination:') || text.includes('Destination:')) {
-        const m = text.match(/Destination: (.+)/);
-        if (m) lastFile = m[1].trim();
-      }
+      const m = text.match(/Destination: (.+)/);
+      if (m) lastFile = m[1].trim();
     });
 
     proc.on('close', code => {
@@ -130,10 +177,8 @@ function download(job) {
         return reject(new Error(`yt-dlp exited with code ${code}`));
       }
 
-      // Find the actual output file
       const fs = require('fs');
       if (!lastFile || !fs.existsSync(lastFile)) {
-        // Scan downloads dir for files matching job id
         const files = fs.readdirSync(DOWNLOAD_DIR);
         const match = files.find(f => f.startsWith(job.id));
         if (match) lastFile = path.join(DOWNLOAD_DIR, match);

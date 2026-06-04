@@ -15,7 +15,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/api/info', require('./routes/info'));
 app.use('/api/download', require('./routes/download'));
 app.use('/api/jobs', require('./routes/jobs'));
-app.use('/api/file', require('./routes/jobs')); // file streaming also in jobs
+app.use('/api/file', require('./routes/jobs'));
+app.use('/api/transcribe', require('./routes/transcribe'));
 
 // Fallback: serve index.html for any non-API route (SPA)
 app.get('*', (req, res) => {

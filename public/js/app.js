@@ -2,42 +2,32 @@
   // ===== State =====
   const state = {
     currentInfo: null,
-    mediaType: 'video',
-    selectedQuality: 'best',
-    selectedFormat: 'mp4',
     jobs: [],
     installPrompt: null,
   };
 
-  const VIDEO_FORMATS = ['mp4', 'webm', 'mkv', 'avi'];
-  const AUDIO_FORMATS = ['mp3', 'aac', 'ogg', 'wav', 'flac', 'm4a'];
-
-  // ===== DOM refs =====
-  const urlInput = document.getElementById('url-input');
-  const pasteBtn = document.getElementById('paste-btn');
-  const fetchBtn = document.getElementById('fetch-btn');
+  // ===== DOM =====
+  const urlInput   = document.getElementById('url-input');
+  const pasteBtn   = document.getElementById('paste-btn');
+  const fetchBtn   = document.getElementById('fetch-btn');
+  const fetchLabel = document.getElementById('fetch-label');
+  const fetchSpinner = document.getElementById('fetch-spinner');
   const fetchError = document.getElementById('fetch-error');
-  const videoCard = document.getElementById('video-card');
-  const videoThumb = document.getElementById('video-thumb');
-  const videoDuration = document.getElementById('video-duration');
-  const videoTitle = document.getElementById('video-title');
-  const videoChannel = document.getElementById('video-channel');
-  const optionsPanel = document.getElementById('options-panel');
-  const qualityGroup = document.getElementById('quality-group');
-  const qualityChips = document.getElementById('quality-chips');
-  const formatSelect = document.getElementById('format-select');
-  const downloadBtn = document.getElementById('download-btn');
-  const toggleBtns = document.querySelectorAll('.toggle-btn');
-  const tabs = document.querySelectorAll('.tab');
+  const videoCard  = document.getElementById('video-card');
+  const vcThumb    = document.getElementById('vc-thumb');
+  const vcDuration = document.getElementById('vc-duration');
+  const vcTitle    = document.getElementById('vc-title');
+  const vcChannel  = document.getElementById('vc-channel');
+  const fmtSection = document.getElementById('formats-section');
+  const videoRows  = document.getElementById('video-format-rows');
+  const audioRows  = document.getElementById('audio-format-rows');
+  const tabs       = document.querySelectorAll('.tab');
   const installBtn = document.getElementById('install-btn');
 
-  // ===== Install prompt =====
+  // ===== Install =====
   window.addEventListener('beforeinstallprompt', e => {
-    e.preventDefault();
-    state.installPrompt = e;
-    installBtn.classList.remove('hidden');
+    e.preventDefault(); state.installPrompt = e; installBtn.classList.remove('hidden');
   });
-
   installBtn.addEventListener('click', async () => {
     if (!state.installPrompt) return;
     state.installPrompt.prompt();
@@ -49,27 +39,19 @@
   // ===== Tabs =====
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
-
       const target = tab.dataset.tab;
       document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
       document.getElementById(`view-${target}`).classList.remove('hidden');
-
       if (target === 'library') UI.renderLibrary(onPlayLibrary, onDeleteLibrary);
     });
   });
 
   // ===== Paste =====
   pasteBtn.addEventListener('click', async () => {
-    try {
-      const text = await navigator.clipboard.readText();
-      urlInput.value = text;
-      urlInput.focus();
-    } catch {
-      urlInput.focus();
-    }
+    try { urlInput.value = await navigator.clipboard.readText(); } catch {}
+    urlInput.focus();
   });
 
   // ===== Fetch info =====
@@ -80,21 +62,27 @@
     const url = urlInput.value.trim();
     if (!url) { showError('Ingresa un link de YouTube'); return; }
 
+    setFetching(true);
     fetchError.classList.add('hidden');
-    fetchBtn.disabled = true;
-    fetchBtn.innerHTML = '<span class="spinner"></span>';
+    fmtSection.classList.add('hidden');
+    videoCard.classList.add('hidden');
 
     try {
       const info = await API.fetchInfo(url);
       state.currentInfo = { ...info, url };
       renderVideoCard(info);
-      renderOptions(info.availableQualities);
+      renderFormatTable(info);
     } catch (err) {
       showError(err.message);
     } finally {
-      fetchBtn.disabled = false;
-      fetchBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
+      setFetching(false);
     }
+  }
+
+  function setFetching(on) {
+    fetchBtn.disabled = on;
+    fetchLabel.classList.toggle('hidden', on);
+    fetchSpinner.classList.toggle('hidden', !on);
   }
 
   function showError(msg) {
@@ -102,66 +90,83 @@
     fetchError.classList.remove('hidden');
   }
 
+  // ===== Video card =====
   function renderVideoCard(info) {
-    videoThumb.src = info.thumbnail || '';
-    videoThumb.onerror = () => { videoThumb.style.display = 'none'; };
-    videoDuration.textContent = formatDuration(info.duration);
-    videoTitle.textContent = info.title;
-    videoChannel.textContent = info.channel;
+    vcThumb.src = info.thumbnail || '';
+    vcThumb.onerror = () => { vcThumb.style.display = 'none'; };
+    vcDuration.textContent = fmtDuration(info.duration);
+    vcTitle.textContent = info.title;
+    vcChannel.textContent = info.channel;
     videoCard.classList.remove('hidden');
   }
 
-  function renderOptions(qualities) {
-    qualityChips.innerHTML = '';
-    qualities.forEach(q => {
-      const chip = document.createElement('button');
-      chip.className = 'chip' + (q === state.selectedQuality ? ' selected' : '');
-      chip.textContent = q === 'best' ? 'Mejor' : q;
-      chip.dataset.quality = q;
-      chip.addEventListener('click', () => {
-        state.selectedQuality = q;
-        qualityChips.querySelectorAll('.chip').forEach(c => c.classList.toggle('selected', c.dataset.quality === q));
-      });
-      qualityChips.appendChild(chip);
+  // ===== Format table (i2mate style) =====
+  function renderFormatTable(info) {
+    videoRows.innerHTML = '';
+    audioRows.innerHTML = '';
+
+    // Video rows
+    (info.videoRows || []).forEach(row => {
+      const div = document.createElement('div');
+      div.className = 'format-row';
+      const btns = row.formats.map(fmt =>
+        `<button class="format-btn" data-quality="${row.quality}" data-type="video" data-fmt="${fmt}">${fmt.toUpperCase()}</button>`
+      ).join('');
+      div.innerHTML = `
+        <div class="format-quality">
+          <div class="format-quality-label">${row.label}</div>
+          ${row.sizeMB ? `<div class="format-quality-size">~${row.sizeMB} MB</div>` : ''}
+        </div>
+        <div class="format-btns">${btns}</div>
+      `;
+      videoRows.appendChild(div);
     });
-    updateFormatOptions();
-    optionsPanel.classList.remove('hidden');
-  }
 
-  // ===== Media type toggle =====
-  toggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      toggleBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      state.mediaType = btn.dataset.type;
-      qualityGroup.style.display = state.mediaType === 'audio' ? 'none' : '';
-      updateFormatOptions();
+    // Audio rows
+    (info.audioRows || []).forEach(row => {
+      const div = document.createElement('div');
+      div.className = 'format-row';
+      const btns = row.formats.map(fmt =>
+        `<button class="format-btn" data-quality="${row.quality}" data-type="audio" data-fmt="${fmt}">${fmt.toUpperCase()}</button>`
+      ).join('');
+      div.innerHTML = `
+        <div class="format-quality">
+          <div class="format-quality-label">${row.label}</div>
+        </div>
+        <div class="format-btns">${btns}</div>
+      `;
+      audioRows.appendChild(div);
     });
-  });
 
-  function updateFormatOptions() {
-    const formats = state.mediaType === 'audio' ? AUDIO_FORMATS : VIDEO_FORMATS;
-    formatSelect.innerHTML = formats.map(f =>
-      `<option value="${f}" ${f === state.selectedFormat ? 'selected' : ''}>${f.toUpperCase()}</option>`
-    ).join('');
-    state.selectedFormat = formatSelect.value;
+    // Attach click handlers to all format buttons
+    fmtSection.querySelectorAll('.format-btn').forEach(btn => {
+      btn.addEventListener('click', () => startDownload(
+        btn.dataset.quality,
+        btn.dataset.type,
+        btn.dataset.fmt,
+        btn
+      ));
+    });
+
+    fmtSection.classList.remove('hidden');
+    fmtSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
-
-  formatSelect.addEventListener('change', () => { state.selectedFormat = formatSelect.value; });
 
   // ===== Download =====
-  downloadBtn.addEventListener('click', startDownload);
-
-  async function startDownload() {
+  async function startDownload(quality, mediaType, format, btnEl) {
     if (!state.currentInfo) return;
 
-    downloadBtn.disabled = true;
+    btnEl.disabled = true;
+    btnEl.classList.add('downloading');
+    const origText = btnEl.textContent;
+    btnEl.textContent = '...';
+
     try {
       const { jobId } = await API.startDownload({
         url: state.currentInfo.url,
-        quality: state.selectedQuality,
-        mediaType: state.mediaType,
-        format: state.selectedFormat,
+        quality,
+        mediaType,
+        format,
         title: state.currentInfo.title,
         thumbnail: state.currentInfo.thumbnail,
       });
@@ -170,8 +175,9 @@
         id: jobId,
         title: state.currentInfo.title,
         thumbnail: state.currentInfo.thumbnail,
-        mediaType: state.mediaType,
-        format: state.selectedFormat,
+        mediaType,
+        format,
+        quality,
         state: 'queued',
         percent: 0,
         speed: null,
@@ -183,6 +189,11 @@
 
       state.jobs.unshift(job);
       renderJobQueue();
+
+      // Restore button
+      btnEl.disabled = false;
+      btnEl.classList.remove('downloading');
+      btnEl.textContent = origText;
 
       WS.subscribe(jobId, msg => {
         const idx = state.jobs.findIndex(j => j.id === jobId);
@@ -196,8 +207,8 @@
             id: jobId,
             title: state.currentInfo.title,
             thumbnail: state.currentInfo.thumbnail,
-            mediaType: state.mediaType,
-            format: state.selectedFormat,
+            mediaType,
+            format,
             fileUrl: msg.downloadUrl,
             filename: msg.filename,
             savedAt: Date.now(),
@@ -211,50 +222,40 @@
         }
       });
     } catch (err) {
+      btnEl.disabled = false;
+      btnEl.classList.remove('downloading');
+      btnEl.textContent = origText;
       showError(err.message);
-    } finally {
-      downloadBtn.disabled = false;
     }
   }
 
   function renderJobQueue() {
-    UI.renderQueue(state.jobs, onCancelJob, onPlayJob);
+    UI.renderQueue(
+      state.jobs,
+      id => {
+        API.cancelJob(id);
+        WS.unsubscribe(id);
+        state.jobs = state.jobs.filter(j => j.id !== id);
+        renderJobQueue();
+      },
+      job => Player.open({ title: job.title, fileUrl: job.downloadUrl, filename: job.filename, mediaType: job.mediaType }),
+      job => Transcribe.transcribeJob(job.id, job.title)
+    );
   }
 
-  function onCancelJob(jobId) {
-    API.cancelJob(jobId);
-    WS.unsubscribe(jobId);
-    state.jobs = state.jobs.filter(j => j.id !== jobId);
-    renderJobQueue();
-  }
-
-  function onPlayJob(job) {
-    Player.open({
-      title: job.title,
-      fileUrl: job.downloadUrl,
-      filename: job.filename,
-      mediaType: job.mediaType,
-    });
-  }
-
-  function onPlayLibrary(entry) {
-    Player.open(entry);
-  }
+  function onPlayLibrary(entry) { Player.open(entry); }
 
   async function onDeleteLibrary(id) {
     await Library.remove(id);
     UI.renderLibrary(onPlayLibrary, onDeleteLibrary);
   }
 
-  function formatDuration(secs) {
+  function fmtDuration(secs) {
     if (!secs) return '';
-    const h = Math.floor(secs / 3600);
-    const m = Math.floor((secs % 3600) / 60);
-    const s = Math.floor(secs % 60);
-    return h > 0
-      ? `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`
-      : `${m}:${String(s).padStart(2,'0')}`;
+    const h = Math.floor(secs / 3600), m = Math.floor((secs % 3600) / 60), s = Math.floor(secs % 60);
+    return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
   }
+  const pad = n => String(n).padStart(2, '0');
 
   // ===== Service Worker =====
   if ('serviceWorker' in navigator) {
