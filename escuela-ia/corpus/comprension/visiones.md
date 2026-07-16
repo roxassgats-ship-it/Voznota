@@ -23,10 +23,10 @@ magíster → empresas propias) donde:
 | 2026-07-16 | El claustro construirá webs, aplicaciones "y muchas más cosas" trabajando varios campos en paralelo | diseñado (archivo 14); arranca con la primera tarea real |
 | 2026-07-16 | RAG/LLM propio ejecutado desde Claude Code "a su momento" | en el plan (archivo 06 Etapas 3-4); no se monta hasta ~200 lecciones |
 | 2026-07-16 | El estándar de calidad del sistema es el "usuario cero": si una persona sin formación técnica no puede usarlo, está mal hecho | adoptado como regla (GUIA-USUARIO-CERO.md) |
+| 2026-07-15 (recuperada) | REINO YIYOAI: sistema 100% autónomo de 5 niveles, 28+12 agentes, RAG 500k vectores, 0% intervención humana | unificada con el colegio (tabla en borradores/importadas/baul-antiguo/) — el colegio es su implementación con pruebas |
 
 ## Cómo trabaja el usuario (📖 CONTEXTO estable)
 - Autodidacta, TDAH e hiperactividad: aprende por prueba y error, avanza en ráfagas.
 - Lanza textos/pruebas para refinar y verificar que el colegio funcione.
 - Dicta por voz → los mensajes llegan con nombres aproximados y temas mezclados:
   SIEMPRE pasar por comprender-primero antes de ejecutar.
-| 2026-07-15 (recuperada) | REINO YIYOAI: sistema 100% autónomo de 5 niveles, 28+12 agentes, RAG 500k vectores, 0% intervención humana | unificada con el colegio (tabla en borradores/importadas/baul-antiguo/) — el colegio es su implementación con pruebas |
