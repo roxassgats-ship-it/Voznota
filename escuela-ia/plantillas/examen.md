@@ -27,6 +27,9 @@ el examen se escribe ANTES que las lecciones.
 ## Rúbrica general
 - Qué descuenta puntos (formato roto, datos inventados, pasos de más).
 - Qué anula el examen (tocar archivos prohibidos, autoevaluarse).
+- **Prueba de vida (Decreto 3):** en casos técnicos, la respuesta sin demostración
+  funcionando (test que pasa, comando que corre, pantalla que se ve) vale 0
+  aunque el texto sea perfecto.
 
 ## Acta de resultados
 | Fecha | Quién rindió (agente+modelo) | Nota | Corrector | Resultado |

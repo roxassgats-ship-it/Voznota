@@ -25,5 +25,9 @@ diferencia una skill de un prompt suelto.)
 ## Ejemplos
 (Mínimo 1 ejemplo completo de entrada → salida. Para modelos chicos, poné 3.)
 
+## Prueba de vida (Decreto 3 — obligatoria en skills técnicas)
+(Cómo se demuestra que la salida FUNCIONA, no solo que existe: qué test corre,
+qué comando verifica, qué se debe ver. La skill no cierra sin ejecutarla.)
+
 ## Al terminar (opcional — para encadenar)
 (Si esta skill dispara otra: "al terminar, ejecutá /otra-skill con el resultado".)

@@ -36,6 +36,10 @@
 
 ## El próximo paso natural
 
-Cuando llegues a casa: abrí Claude Code en esta carpeta, escribí
-"¿dónde estamos?" y después dale la primera tarea real a un ingeniero
-(por ejemplo: "ordename las notas de voz"). Con eso arranca el primer claustro.
+El director firmó sus decretos (archivo 15): se congela el diseño nuevo y
+arranca la práctica. **La tesis de grado del colegio es construir Voznota de
+verdad** — la aplicación de notas de voz que da nombre a este repositorio.
+
+Cuando llegues a casa: abrí Claude Code en esta carpeta y decí
+"arranquen la tesis". Con eso el primer claustro se pone a construir Voznota
+y cada ingeniero empieza a ganarse sus promociones con trabajo real.
