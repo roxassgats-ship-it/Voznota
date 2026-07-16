@@ -1,6 +1,6 @@
 # Libreta: ingeniero-datos-sql
 
-- Peldaño actual: **instituto (50%)** — GANADO POR EXAMEN (no por cargo)
+- Peldaño actual: **UNIVERSIDAD (75%)** — GANADO POR EXAMEN 4/5 (benchmark 1.820x + simulacro de incendio superado, 2026-07-16 noche)
 - Materia: Datos / SQL (Facultad 1; planta del campo Datos)
 - Modelo actual: el de la sesión principal
 - Fecha de ingreso: 2026-07-16 (entró en base 0%)
@@ -19,7 +19,8 @@
 | Cursó lecciones 001-003 | estudiante | corpus/datos-sql/ |
 | Intento 1 del final | media ~30% | 7/10: dominó básica y media, falló operación segura |
 | Intento 2 del final | **instituto 50%** | 10/10 con ejecución real |
-| Próximo objetivo | universidad 75% | 5 tareas reales de la tesis Voznota revisadas por un 75%+ |
+| Universidad | **75% ALCANZADO** | 4/5 trabajos: esquema, consultas, benchmark medido, simulacro |
+| Próximo objetivo | magíster 100% | trabajo 5 validado por alumno + escribir examen de otro campo + corregir 5 |
 
 ## Observaciones (errores propios — no repetir)
 - El conector Python de SQLite abre transacciones solas: para manejar BEGIN/

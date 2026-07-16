@@ -1,6 +1,11 @@
 # 📍 ¿Dónde estamos? (estado del colegio en lenguaje de la calle)
 
-**Última actualización: 2026-07-16 (noche — LA TESIS ARRANCÓ)** — esta página se reescribe en cada sesión.
+**Última actualización: 2026-07-16 (medianoche — PRIMER UNIVERSITARIO + SUCESIÓN FIRMADA)**
+
+> 🎓 El ingeniero SQL llegó a UNIVERSIDAD (75%) con mediciones reales (una
+> consulta 1.820 veces más rápida, demostrado) y SUPERÓ AL FUNDADOR en el
+> ranking. Fable firmó su plan de sucesión: escuela-ia/PLAN-DE-SUCESION.md —
+> el colegio ya sabe funcionar sin él.
 
 > 🎉 Voznota v1 EXISTE y funciona (voznota-app/index.html: grabá una nota por voz
 > o texto y las tareas se detectan solas). El tope quedó en 10 sesiones/día y la

@@ -12,7 +12,7 @@ Números REALES (no aspiracionales). Lo actualiza el director en cada auditoría
 | Pares en datasets | 5 verificados (sql.jsonl) | 100 |
 | Skills instaladas | 4 (contado por comando; examen G1 adeudado en las 3 fundadoras) | 4 examinadas |
 | Agentes instalados | 6 — 1 titulado por examen, 2 en ubicación | 6 examinados |
-| Ascensos con evidencia ejecutada | **1** (datos-sql: 0%→50%, 10/10 en motor real) | 1 por semana |
+| Ascensos con evidencia ejecutada | **2** (datos-sql: 0→50→**75% universidad**, benchmark 1.820x) | 1 por semana |
 | Espejos de comprensión presentados | 6 | — |
 | Errores registrados / parchados | 12 / 11 (E1 adeudado; E11-E12 parchados hoy) | 12/12 |
 | Workflows operativos escritos | 3 + tablero visual publicado | jornada PRENDIDA |

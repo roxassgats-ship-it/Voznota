@@ -29,3 +29,4 @@
 ## Acta de resultados
 | Fecha | Quién rindió | Trabajos aprobados | Corrector | Resultado |
 |---|---|---|---|---|
+| 2026-07-16 | ingeniero-datos-sql | 1,2 (esquema+consultas, tras ciclo QA) · 3 (benchmark 1.820x medido) · 4 (simulacro superado) = **4/5** | motor SQLite (objetivo) + contrafirma QA en 1-2 | **APROBADO → UNIVERSIDAD (75%)** · trabajo 5 (lección 004) escrito, pendiente de que un alumno de básica apruebe con ella |
