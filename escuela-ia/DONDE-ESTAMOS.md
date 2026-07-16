@@ -1,6 +1,13 @@
 # 📍 ¿Dónde estamos? (estado del colegio en lenguaje de la calle)
 
-**Última actualización: 2026-07-16** — esta página se reescribe en cada sesión.
+**Última actualización: 2026-07-16 (tarde — tras la primera auditoría)** — esta página se reescribe en cada sesión.
+
+> Novedad de la auditoría: se corrió el primer testeo técnico completo. Se
+> encontraron 5 errores internos (ninguno te afectó), 4 ya están parchados y
+> todos quedaron anotados en el registro de errores para no repetirse. El
+> catálogo ahora incluye TODOS los puestos (asistente → técnico → profesional →
+> ingeniero → director) para cualquier oficio, y el traductor entregó su primera
+> síntesis de todo lo que pediste (corpus/comprension/sintesis-2026-07-16.md).
 
 ## Qué existe y ya funciona
 

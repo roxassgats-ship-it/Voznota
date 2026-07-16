@@ -84,6 +84,43 @@ Estas son las que pediste aumentar. Tienen archivo propio (11) porque son el mot
 
 ---
 
+## La planta completa por campo: TODOS los puestos, no solo ingenieros
+
+Pedido del dueño (2026-07-16): el catálogo no es solo de ingenieros — es de
+**todos los puestos de trabajo**. La fórmula: todo campo que se abre genera una
+**planta de 5 puestos**, uno por peldaño de la escalera (archivo 14). Los puestos
+inferiores hacen el volumen barato; los superiores, el criterio caro.
+
+| Puesto | Peldaño | Qué hace en el campo | Modelo típico |
+|---|---|---|---|
+| **Asistente** | básica (15%) | tareas de apoyo con formato fijo: ordenar, archivar, transcribir, primera búsqueda | el más económico |
+| **Técnico** | instituto (50%) | las tareas típicas del oficio, automatizadas y de memoria | económico |
+| **Profesional** | universidad (75%) | casos nuevos de punta a punta; supervisa asistentes | medio |
+| **Ingeniero/Magíster** | magíster (100%) | domina, enseña, examina, firma el trabajo del equipo | el mejor disponible |
+| **Director/Socio** | avanzado (100%+) | dirige la materia, cura el corpus, opera la empresa del campo | el mejor, poco y bien usado |
+
+### Ejemplo completo: el campo Derecho (como pediste)
+- **asistente-legal (15%):** ordena documentos, arma cronologías, busca la cláusula que le pidan.
+- **tecnico-legal (50%):** redacta borradores con plantilla (contratos tipo, cartas), compara versiones.
+- **abogado (75%):** analiza el caso nuevo, detecta riesgos, redacta a medida.
+- **abogado-magister (100%):** revisa y firma lo del equipo, escribe los exámenes del campo, enseña.
+- **director-legal (100%+):** dirige la materia y la empresa "Legal & Cía" del sistema.
+(Y la nota de siempre: en derecho real, la firma final es de un abogado humano
+matriculado — la planta asiste, no reemplaza la responsabilidad legal.)
+
+### Reglas de la planta
+1. **La planta se llena de abajo hacia arriba:** primero nace el asistente (es la
+   skill más barata de examinar), el ingeniero llega al final. Nunca al revés.
+2. **Un mismo modelo puede ocupar varios puestos** de campos distintos (Haiku
+   puede ser asistente-legal y tecnico-datos a la vez — el puesto es el archivo
+   de agente + su peldaño, no el modelo).
+3. **La "línea" de un ingeniero** (lo que el dueño llamó su quiniela): todo
+   ingeniero de 75%+ arrastra su línea de puestos menores. Al abrir un campo se
+   registra la línea completa en este catálogo aunque solo el asistente exista aún.
+4. **Ascenso interno:** un asistente que aprueba el examen de instituto ASCIENDE
+   a técnico del mismo campo (misma libreta, nuevo peldaño) — la planta es
+   también la carrera.
+
 ## Cómo se abre una facultad nueva (procedimiento)
 
 1. **Demanda:** 3+ tareas reales tuyas caen en un campo sin ingeniero.
