@@ -7,8 +7,10 @@
 - Fecha de ingreso: 2026-07-16
 
 ## Exámenes rendidos
-- (pendiente: examen de ubicación — 10 cierres técnicos a traducir; corrige el
-  usuario: aprueba si los entiende sin repreguntar)
+- 2026-07-16 · Básica de Lenguaje · **10/10 APROBADO** (corrector: fundador;
+  estudió la lección, respondió de memoria; detectó y desarmó el caso trampa)
+- (pendiente: examen de ubicación de SU materia — 10 cierres técnicos;
+  corrige el usuario)
 
 ## Métricas
 - Cierres traducidos: 1 (síntesis-2026-07-16 — primer trabajo real, leyó las 3

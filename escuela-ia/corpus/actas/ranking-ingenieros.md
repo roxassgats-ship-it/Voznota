@@ -9,7 +9,7 @@ Actualizado: 2026-07-16 noche. HITO: el alumno (datos-sql) superó al fundador e
 | 2º | **profesor-fundador** | **74/100** | 4 lecciones escritas + 2 exámenes de banco + dirigió la auditoría. PERO: violó su propia regla de oro (E3) y debe su examen docente (un alumno suyo aún no aprobó solo con sus lecciones) → no llega a 75 hasta saldar eso. |
 | 3º | **ingeniero-comprension** | **60/100** | 4 espejos presentados, diccionario y visiones al día, 0 llaves rojas mal usadas. Le falta: veredicto del dueño sobre sus espejos (su examen real) y volumen. |
 | 1º | **ingeniero-datos-sql** | **75/100** | PRIMER UNIVERSITARIO: técnico por examen 10/10 + universidad 4/5 (benchmark 1.820x medido, simulacro de incendio superado). Todo nivel suyo es ejecutado, nada declarado. |
-| 4º | **traductor-tecnico** | **45/100** | 1 trabajo real entregado (síntesis de 600 palabras, correcta y a formato). Muestra chica: una golondrina no hace verano. Sube rápido con 4-5 cierres más. |
+| 4º | **traductor-tecnico** | **52/100** | 1 trabajo real + TÍTULO BÁSICA DE LENGUAJE 10/10 (de memoria, desarmó el caso trampa con reescritura honesta). Segundo agente con título por examen. |
 
 ### Skills (aparte: son herramientas, no ingenieros)
 | Skill | Nivel | Evidencia |
