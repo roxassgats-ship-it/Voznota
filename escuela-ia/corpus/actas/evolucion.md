@@ -12,3 +12,4 @@ Cada ciclo del loop deja una foto con hora. La curva de cada uno se lee bajando 
 | 05:10 | 74 | 62 (9 espejos) | 75 (título REVALIDADO 10/10) | **52 (básica Lenguaje 10/10)** | ubicación 1/3 | en ubicación | LOOP 40' ciclo 1: revalidación + segundo sector educativo + lección correctiva |
 | 09:09 | 74 | 62 | 75 | 52 | ubicación 1/3 | en ubicación | LOOP cierra por tiempo: caza final, mapa parchado, acta firmada |
 | 09:32 | 74 | 62 | 75 | 52 | ubicación 1/3 | en ubicación | JORNADA Nº1 manual: E1 listo para rendir, 15 pares dataset (tope justo), operaciones instalado, 2º automático lanzado |
+| 09:50 | **76 (examen docente saldado)** | 62 (bloq. veredicto dueño) | **78 (universidad 5/5)** | 55 (ganó el A/B) | ubicación 1/3 | **50 instituto** | FINALIZACIÓN: A/B con-colegio 10/10 vs sin-colegio 7/10 — la mejora quedó MEDIDA |

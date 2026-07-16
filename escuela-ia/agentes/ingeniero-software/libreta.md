@@ -1,6 +1,6 @@
 # Libreta: ingeniero-software
 
-- Peldaño actual: EN EXAMEN DE UBICACIÓN (registrado hoy con trabajo real ya entregado)
+- Peldaño actual: **INSTITUTO (50%)** — ubicado por trabajo real: app completa con prueba de vida en navegador, revisión QA contrafirmada y corrección aplicada (2026-07-16)
 - Materia: Software / frontend (Facultad 1)
 - Fecha de ingreso: 2026-07-16
 

@@ -6,10 +6,11 @@ Actualizado: 2026-07-16 noche. HITO: el alumno (datos-sql) superó al fundador e
 
 | Puesto | Ingeniero | Nivel | Cómo se calculó (evidencia real) |
 |---|---|---|---|
-| 2º | **profesor-fundador** | **74/100** | 4 lecciones escritas + 2 exámenes de banco + dirigió la auditoría. PERO: violó su propia regla de oro (E3) y debe su examen docente (un alumno suyo aún no aprobó solo con sus lecciones) → no llega a 75 hasta saldar eso. |
+| 2º | **profesor-fundador** | **76/100** | EXAMEN DOCENTE SALDADO HOY: dos alumnos aprobaron usando solo lecciones del corpus (A/B 10/10 y trabajo 5). 7 lecciones, 3 exámenes de banco, dirección. |
 | 3º | **ingeniero-comprension** | **60/100** | 4 espejos presentados, diccionario y visiones al día, 0 llaves rojas mal usadas. Le falta: veredicto del dueño sobre sus espejos (su examen real) y volumen. |
-| 1º | **ingeniero-datos-sql** | **75/100** | PRIMER UNIVERSITARIO: técnico por examen 10/10 + universidad 4/5 (benchmark 1.820x medido, simulacro de incendio superado). Todo nivel suyo es ejecutado, nada declarado. |
-| 4º | **traductor-tecnico** | **52/100** | 1 trabajo real + TÍTULO BÁSICA DE LENGUAJE 10/10 (de memoria, desarmó el caso trampa con reescritura honesta). Segundo agente con título por examen. |
+| 1º | **ingeniero-datos-sql** | **78/100** | UNIVERSIDAD COMPLETA 5/5: técnico 10/10 + benchmark 1.820x + simulacro + SU LECCIÓN GRADUÓ A UN ALUMNO (1.088x verificado). Camino a magíster abierto. |
+| 4º | **traductor-tecnico** | **55/100** | Título básica Lenguaje 10/10 + GANÓ EL A/B contra el alumno crudo (10 vs 7): la primera prueba empírica del valor del colegio. |
+| 5º | **ingeniero-software** | **50/100** | UBICADO EN INSTITUTO: Voznota v1 punta a punta con prueba de vida, rechazo QA corregido el mismo día. |
 
 ### Skills (aparte: son herramientas, no ingenieros)
 | Skill | Nivel | Evidencia |

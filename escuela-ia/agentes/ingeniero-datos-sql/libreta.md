@@ -20,7 +20,8 @@
 | Intento 1 del final | media ~30% | 7/10: dominó básica y media, falló operación segura |
 | Intento 2 del final | **instituto 50%** | 10/10 con ejecución real |
 | Universidad | **75% ALCANZADO** | 4/5 trabajos: esquema, consultas, benchmark medido, simulacro |
-| Próximo objetivo | magíster 100% | trabajo 5 validado por alumno + escribir examen de otro campo + corregir 5 |
+| Universidad COMPLETA | 5/5 | trabajo 5: alumno de básica aprobó caso nuevo con SU lección (índice 1.088x verificado) |
+| Próximo objetivo | magíster 100% | escribir examen de otro campo que alguien apruebe + corregir 5 exámenes ajenos |
 
 ## Observaciones (errores propios — no repetir)
 - El conector Python de SQLite abre transacciones solas: para manejar BEGIN/
