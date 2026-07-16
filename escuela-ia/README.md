@@ -69,6 +69,7 @@ modelo comercial para entrenar otro modelo; para uso interno y educativo el corp
 | [13-biblioteca-externa.md](13-biblioteca-externa.md) | Repositorios de GitHub con skills/agentes importables + protocolo de inmigración |
 | [14-ingenieria-de-educacion.md](14-ingenieria-de-educacion.md) | La escalera completa (primaria→avanzado), examen de ubicación, 8 modos de aprendizaje, el claustro |
 | [15-decretos-del-director.md](15-decretos-del-director.md) | Los 7 decretos del director, el perfil del egresado imparable y la tesis: construir Voznota |
+| [PLAN-DE-SUCESION.md](PLAN-DE-SUCESION.md) | El testamento del fundador: herencia de los 6 sucesores, examen del fundador y protocolo del retiro |
 | [GUIA-USUARIO-CERO.md](GUIA-USUARIO-CERO.md) | Cómo usa todo esto una persona sin NINGÚN conocimiento técnico (3 pasos) |
 | [DONDE-ESTAMOS.md](DONDE-ESTAMOS.md) | Estado del colegio en lenguaje de la calle; se actualiza cada sesión |
 | [plantillas/](plantillas/) | Plantillas listas para copiar: skill, agente-profesor, lección, examen |
