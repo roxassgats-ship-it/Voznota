@@ -72,6 +72,7 @@ modelo comercial para entrenar otro modelo; para uso interno y educativo el corp
 | [GUIA-USUARIO-CERO.md](GUIA-USUARIO-CERO.md) | Cómo usa todo esto una persona sin NINGÚN conocimiento técnico (3 pasos) |
 | [DONDE-ESTAMOS.md](DONDE-ESTAMOS.md) | Estado del colegio en lenguaje de la calle; se actualiza cada sesión |
 | [plantillas/](plantillas/) | Plantillas listas para copiar: skill, agente-profesor, lección, examen |
+| [workflows/](workflows/) | Workflows operativos: mejora continua, RAG-consulta, jornada escolar |
 | [corpus/](corpus/) | Acá se depositan los "pensamientos de estudio" que generan los loops |
 
 ## Cómo se usa el colegio, resumido en 5 pasos

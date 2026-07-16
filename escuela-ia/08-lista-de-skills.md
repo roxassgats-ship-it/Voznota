@@ -42,6 +42,8 @@ El nombre del ingeniero resultante figura en la última columna.
 | convertir-prompt-a-skill | Aplica la plantilla y genera los casos de prueba | ingeniero-prompts |
 | traducir-tecnico | Traduce documentación manteniendo términos | ingeniero-redaccion |
 | generar-leccion | Convierte conocimiento en lección con formato oficial | (skill docente: la reciben los Grado 4) |
+| comprender-primero | Disecciona vómitos verbales del dueño antes de ejecutar (protocolo archivo 12) | ingeniero-comprension |
+| auditar-y-parchar | Caza fallos/brechas/huecos, parcha lo barato, registra E# y reglas nuevas | ingeniero-operaciones |
 
 ## Campo: Escuela y evaluación
 

@@ -68,6 +68,41 @@ corrida sobre todo el sistema).
 - **Regla nueva:** anotada en la libreta del ingeniero-datos-sql (Observaciones)
   y candidata a lección "trampas del conector" cuando se repita en otro motor.
 
+## E7 · No existía CLAUDE.md en la raíz (la brecha más grave de la retrospectiva)
+- **Qué falló:** todas las reglas del colegio vivían en escuela-ia/, pero nada
+  las cargaba automáticamente en una sesión nueva. La "autonomía" de los agentes
+  dependía de que alguien se acordara de leer los documentos.
+- **Impacto:** ALTO. Sin esto, el protocolo de reparación autónoma que pidió el
+  dueño era imposible: cada sesión nueva arrancaba amnésica.
+- **Parche:** ✅ CLAUDE.md creado en la raíz con: comprensión primero, protocolo
+  de reparación autónoma, llaves rojas, reglas de trabajo y mapa mínimo.
+- **Regla nueva:** toda regla "permanente" debe vivir en (o estar enlazada desde)
+  CLAUDE.md; si solo está en un archivo numerado, no es permanente, es un deseo.
+
+## E8 · comprender-primero no estaba en el registro civil de skills
+- **Qué falló:** el archivo 08 dice "toda skill nueva se anota acá" y la skill
+  más usada del colegio (4 usos reales) no figuraba.
+- **Impacto:** BAJO. **Parche:** ✅ registrada junto con auditar-y-parchar.
+- **Regla nueva:** crear una skill y registrarla en 08 es UN solo acto (mismo
+  commit) — chequeo fijo de la auditoría.
+
+## E9 · La carpeta workflows/ no figuraba en el mapa del README
+- **Impacto:** BAJO (contenido invisible para quien navega por el mapa).
+- **Parche:** ✅ fila agregada al mapa. Misma regla que E2/E8.
+
+## E10 · Reincidencia de E3: la razón exámenes/lecciones volvió a bajar (0,5)
+- **Qué falló:** al crear las 3 lecciones de SQL con 1 solo examen, se repitió
+  el patrón del E3 UN DÍA después de escribir su regla. Primera reincidencia
+  del colegio.
+- **Impacto:** MEDIO — no por el número, sino por lo que revela: una regla
+  escrita no se cumple sola; hay que chequearla en el momento de producir, no
+  solo en la auditoría.
+- **Parche:** ✅ 2 exámenes nuevos (básica y media SQL): razón 4/4 = 1,0. Y la
+  regla pasó al CLAUDE.md vía skill auditar-y-parchar (chequeo fijo).
+- **Regla nueva (anti-reincidencia):** cuando un E# reincide, su regla asciende
+  de "regla del registro" a "chequeo automático de la auditoría" — las
+  reincidencias son el criterio de qué se automatiza primero.
+
 ---
 
 ## Contención (¿los errores afectan mucho? — evaluación pedida por el dueño)
