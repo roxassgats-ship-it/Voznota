@@ -62,6 +62,11 @@ modelo comercial para entrenar otro modelo; para uso interno y educativo el corp
 | [06-entrenamiento-y-futuro.md](06-entrenamiento-y-futuro.md) | El plan de entrenamiento: corpus → contexto → datasets → modelo propio |
 | [07-ejemplos.md](07-ejemplos.md) | 5 ejemplos completos, paso a paso, sin tecnicismos |
 | [08-lista-de-skills.md](08-lista-de-skills.md) | Lista de skills que se transforman en ingenieros por campo y subcampo |
+| [09-catalogo-de-ingenierias.md](09-catalogo-de-ingenierias.md) | TODAS las facultades e ingenierías: software, telecom, clásicas, humanidades, gestión |
+| [10-instituciones-y-metricas.md](10-instituciones-y-metricas.md) | Base 0% → colegio 15% → instituto 50% → universidad 75% → magíster 100% → empresa propia |
+| [11-ingenieria-del-pensamiento-y-aprendizaje.md](11-ingenieria-del-pensamiento-y-aprendizaje.md) | Meta-ingenierías: pensamiento, exámenes/corpus, aprendizaje, curvas |
+| [12-comprension-humana.md](12-comprension-humana.md) | La puerta de entrada: comprender al humano ANTES de ejecutar (protocolo del vómito verbal) |
+| [13-biblioteca-externa.md](13-biblioteca-externa.md) | Repositorios de GitHub con skills/agentes importables + protocolo de inmigración |
 | [plantillas/](plantillas/) | Plantillas listas para copiar: skill, agente-profesor, lección, examen |
 | [corpus/](corpus/) | Acá se depositan los "pensamientos de estudio" que generan los loops |
 
