@@ -14,3 +14,4 @@ Cada ciclo del loop deja una foto con hora. La curva de cada uno se lee bajando 
 | 09:32 | 74 | 62 | 75 | 52 | ubicación 1/3 | en ubicación | JORNADA Nº1 manual: E1 listo para rendir, 15 pares dataset (tope justo), operaciones instalado, 2º automático lanzado |
 | 09:50 | **76 (examen docente saldado)** | 62 (bloq. veredicto dueño) | **78 (universidad 5/5)** | 55 (ganó el A/B) | ubicación 1/3 | **50 instituto** | FINALIZACIÓN: A/B con-colegio 10/10 vs sin-colegio 7/10 — la mejora quedó MEDIDA |
 | 10:15 | 76 | 62 | 78 | 55 | ubicación 1/3 | 50 | ANTI-HUMO: app publicada al celular, examen de dificultad aumentada, compactación |
+| 14:25 | 76 | 62 | 78 | 55 | ubicación 1/3 | 50 | TRANSFERENCIA: Parte 1 y 2 empaquetadas, prompt para casa, tablero final 55% |
