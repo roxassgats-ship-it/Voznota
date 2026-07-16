@@ -29,3 +29,4 @@ magíster → empresas propias) donde:
 - Lanza textos/pruebas para refinar y verificar que el colegio funcione.
 - Dicta por voz → los mensajes llegan con nombres aproximados y temas mezclados:
   SIEMPRE pasar por comprender-primero antes de ejecutar.
+| 2026-07-15 (recuperada) | REINO YIYOAI: sistema 100% autónomo de 5 niveles, 28+12 agentes, RAG 500k vectores, 0% intervención humana | unificada con el colegio (tabla en borradores/importadas/baul-antiguo/) — el colegio es su implementación con pruebas |

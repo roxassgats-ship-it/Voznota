@@ -21,3 +21,6 @@ el usuario las confirme.
 | comprendimiento | comprensión | ⏳ pendiente |
 | ingenieros psicológicos | ingeniero-psicologia: modela cómo aprende y trabaja el usuario | ⏳ pendiente |
 | claustro / nuevo tipo de IA | equipo de agentes trabajando en paralelo que responde como uno solo | ⏳ pendiente |
+| Reino YiyoAI | el sistema completo del dueño (visión del plan de anoche, 2026-07-15) | ⏳ pendiente |
+| baúl | carpeta/depósito de trabajo (viejo: E:\Traslado.md; nuevo: el repo del colegio) | ⏳ pendiente |
+| chat HOLA | la sesión de anoche cuyo trabajo quedó en el artifact MASTER_PLAN_ULTRA_TURBO | ✅ recuperado 2026-07-16 |
