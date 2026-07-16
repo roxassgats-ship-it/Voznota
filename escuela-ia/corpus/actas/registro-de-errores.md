@@ -103,6 +103,24 @@ corrida sobre todo el sistema).
   de "regla del registro" a "chequeo automático de la auditoría" — las
   reincidencias son el criterio de qué se automatiza primero.
 
+## E11 · La prueba de vida probó el esquema CON ayuda del tester
+- **Qué falló:** el test del esquema activaba a mano la protección (pragma) que
+  el archivo entregado no traía; el cascade parecía funcionar y no funcionaba.
+  Lo cazó el ingeniero-qa en su primera revisión (rechazo correcto).
+- **Impacto:** MEDIO (habría producido huérfanos en cualquier uso real).
+- **Parche:** ✅ pragma dentro del archivo + re-verificación con el artefacto
+  tal cual. **Regla nueva:** la prueba de vida corre el artefacto TAL CUAL se
+  entrega, sin ayudas externas del que testea.
+
+## E12 · Contadores del tablero inflados por memoria (5 skills / 7 agentes)
+- **Qué falló:** el director actualizó contadores de memoria en vez de contarlos
+  por comando: decía 5 skills y 7 agentes cuando el comando da los reales.
+- **Impacto:** BAJO (números de gestión, no de trabajo). Es la peor práctica
+  nº 10 en su versión suave.
+- **Parche:** ✅ contadores recalculados por comando en el mismo commit.
+- **Regla nueva:** los contadores del tablero salen SIEMPRE de comandos
+  (glob/find/wc), nunca de memoria. Chequeo agregado a auditar-y-parchar.
+
 ---
 
 ## Contención (¿los errores afectan mucho? — evaluación pedida por el dueño)

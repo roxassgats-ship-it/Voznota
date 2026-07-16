@@ -1,6 +1,10 @@
 # 📍 ¿Dónde estamos? (estado del colegio en lenguaje de la calle)
 
-**Última actualización: 2026-07-16 (tarde — tras la primera auditoría)** — esta página se reescribe en cada sesión.
+**Última actualización: 2026-07-16 (noche — LA TESIS ARRANCÓ)** — esta página se reescribe en cada sesión.
+
+> 🎉 Voznota v1 EXISTE y funciona (voznota-app/index.html: grabá una nota por voz
+> o texto y las tareas se detectan solas). El tope quedó en 10 sesiones/día y la
+> jornada automática está PRENDIDA (diaria, 08:00 Chile, con aviso al teléfono).
 
 > Novedad de la auditoría: se corrió el primer testeo técnico completo. Se
 > encontraron 5 errores internos (ninguno te afectó), 4 ya están parchados y

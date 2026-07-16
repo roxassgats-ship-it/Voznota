@@ -4,12 +4,16 @@
 (regla del archivo 10). Sin tope fijado, la jornada automática NO arranca.
 
 ## Tope de gasto diario
-- Estado: **SIN FIJAR** — esperando al dueño.
-- Cómo fijarlo: decir en sesión "el tope diario es X" (en sesiones/hora de
-  trabajo, cantidad de rutinas, o el límite de tu plan — lo que te sea natural;
-  el traductor lo convierte).
+- Estado: **FIJADO POR EL DUEÑO — 2026-07-16: "el tope diario son 10 sesiones"**
+- Interpretación operativa: máximo 10 sesiones/rutinas de trabajo por día
+  calendario, contadas en gasto-del-dia.md. Al llegar a 10, la jornada cierra
+  sola y la cola pasa a mañana.
+- La jornada escolar automática queda AUTORIZADA a prenderse.
 
-## Asignación por materia (se completa cuando haya tope)
+## Asignación por materia
 | Materia | Modelo asignado | Tope de la materia |
 |---|---|---|
-| (pendiente de tope general) | | |
+| Jornada escolar diaria (rutina) | el de la sesión | 1 de las 10 |
+| Tesis Voznota | el mejor disponible | hasta 6 de las 10 |
+| Exámenes y corrección | económico cuando exista | 2 de las 10 |
+| Reserva del dueño | — | 1 de las 10 |
