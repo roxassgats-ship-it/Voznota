@@ -11,8 +11,10 @@
   corregidos por el usuario mismo, único corrector válido de esta materia)
 
 ## Métricas
-- Espejos presentados: 1 (orden 2026-07-16-01)
+- Espejos presentados: 2 (órdenes 2026-07-16-01 y 2026-07-16-02)
 - Espejos aprobados sin corrección: pendiente de respuesta del usuario
+- Nota: el espejo 02 fue un texteo de prueba explícito del usuario ("persona de
+  la calle, cero tecnicismo") — su veredicto vale como primer examen parcial.
 
 ## Observaciones
 - (correcciones del usuario a los espejos se registran acá)

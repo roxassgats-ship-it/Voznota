@@ -20,6 +20,9 @@ magíster → empresas propias) donde:
 | 2026-07-16 | El colegio abarca TODAS las ingenierías y materias (historia, telecom, clásicas, humanidades) | catálogo creado (archivo 09), se abre a demanda |
 | 2026-07-16 | Loops constantes que trabajan hasta el tope de tokens diario, nunca sin guía | diseñado (archivo 10, jornada escolar) |
 | 2026-07-16 | El usuario aporta la parte teórica/humana; el sistema cubre el 100% técnico | principio rector de todo el diseño |
+| 2026-07-16 | El claustro construirá webs, aplicaciones "y muchas más cosas" trabajando varios campos en paralelo | diseñado (archivo 14); arranca con la primera tarea real |
+| 2026-07-16 | RAG/LLM propio ejecutado desde Claude Code "a su momento" | en el plan (archivo 06 Etapas 3-4); no se monta hasta ~200 lecciones |
+| 2026-07-16 | El estándar de calidad del sistema es el "usuario cero": si una persona sin formación técnica no puede usarlo, está mal hecho | adoptado como regla (GUIA-USUARIO-CERO.md) |
 
 ## Cómo trabaja el usuario (📖 CONTEXTO estable)
 - Autodidacta, TDAH e hiperactividad: aprende por prueba y error, avanza en ráfagas.

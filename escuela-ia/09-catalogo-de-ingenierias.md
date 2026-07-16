@@ -78,6 +78,9 @@ Estas son las que pediste aumentar. Tienen archivo propio (11) porque son el mot
 | Ingeniería de Exámenes y Corpus | cómo se mide y se guarda el conocimiento | ingeniero-examenes |
 | Ingeniería del Aprendizaje | curvas de aprendizaje, cómo se alimentan las IAs | ingeniero-aprendizaje |
 | Ingeniería de la Comprensión | entender al humano antes de ejecutar (archivo 12) | ingeniero-comprension |
+| Ingeniería de Educación | planes de estudio, exámenes de ubicación, recetas de modos de aprendizaje (archivo 14) | ingeniero-educacion |
+| Psicología del Usuario | perfil humano: cómo aprende, qué lo frustra, dosificación de información | ingeniero-psicologia |
+| Traducción Técnica | técnica→lenguaje de calle y humano→especificación; la voz del claustro | traductor-tecnico |
 
 ---
 

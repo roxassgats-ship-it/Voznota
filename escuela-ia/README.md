@@ -67,6 +67,9 @@ modelo comercial para entrenar otro modelo; para uso interno y educativo el corp
 | [11-ingenieria-del-pensamiento-y-aprendizaje.md](11-ingenieria-del-pensamiento-y-aprendizaje.md) | Meta-ingenierías: pensamiento, exámenes/corpus, aprendizaje, curvas |
 | [12-comprension-humana.md](12-comprension-humana.md) | La puerta de entrada: comprender al humano ANTES de ejecutar (protocolo del vómito verbal) |
 | [13-biblioteca-externa.md](13-biblioteca-externa.md) | Repositorios de GitHub con skills/agentes importables + protocolo de inmigración |
+| [14-ingenieria-de-educacion.md](14-ingenieria-de-educacion.md) | La escalera completa (primaria→avanzado), examen de ubicación, 8 modos de aprendizaje, el claustro |
+| [GUIA-USUARIO-CERO.md](GUIA-USUARIO-CERO.md) | Cómo usa todo esto una persona sin NINGÚN conocimiento técnico (3 pasos) |
+| [DONDE-ESTAMOS.md](DONDE-ESTAMOS.md) | Estado del colegio en lenguaje de la calle; se actualiza cada sesión |
 | [plantillas/](plantillas/) | Plantillas listas para copiar: skill, agente-profesor, lección, examen |
 | [corpus/](corpus/) | Acá se depositan los "pensamientos de estudio" que generan los loops |
 
