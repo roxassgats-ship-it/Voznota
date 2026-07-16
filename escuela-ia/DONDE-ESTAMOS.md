@@ -1,65 +1,25 @@
 # 📍 ¿Dónde estamos? (estado del colegio en lenguaje de la calle)
 
-**Última actualización: 2026-07-16, 09:32 UTC — EL COLEGIO YA CORRE SOLO**
+**Última actualización: 2026-07-16, 10:15 UTC** — versión compactada; el detalle histórico vive en corpus/actas/.
 
-> ⚙️ La jornada Nº1 se ejecutó de inmediato por tu orden (sin esperar a las 08:00)
-> y quedan DOS rutinas automáticas corriendo: la jornada diaria y la fábrica
-> nocturna de datasets. Ambas con freno, gasto anotado y aviso a tu teléfono.
+## En una frase
+El colegio funciona, educa con pruebas medidas (A/B: con colegio 10/10, sin
+colegio 7/10), construyó su primera app real (Voznota), corre solo con 2
+rutinas automáticas, y todo es verificable desde tu celular (PRUEBAS-NO-HUMO.md).
 
-> 🎓 El ingeniero SQL llegó a UNIVERSIDAD (75%) con mediciones reales (una
-> consulta 1.820 veces más rápida, demostrado) y SUPERÓ AL FUNDADOR en el
-> ranking. Fable firmó su plan de sucesión: escuela-ia/PLAN-DE-SUCESION.md —
-> el colegio ya sabe funcionar sin él.
+## Los números (contados por comando)
+- Avance general: **~55%** · 6 agentes (5 con nivel, 1 esperando tu veredicto)
+- Títulos por examen: universidad SQL 5/5 (78) · básica Lenguaje (55) · instituto software (50)
+- 7 lecciones · 8 exámenes · 15 pares de dataset · 14 errores cazados / 13 parchados
+- Automáticos: jornada diaria 12:00 UTC + fábrica nocturna 02:00 UTC (avisan a tu teléfono)
+- Tope de gasto: 10 sesiones/día (tuyo) · gasto de hoy: 4/10
 
-> 🎉 Voznota v1 EXISTE y funciona (voznota-app/index.html: grabá una nota por voz
-> o texto y las tareas se detectan solas). El tope quedó en 10 sesiones/día y la
-> jornada automática está PRENDIDA (diaria, 08:00 Chile, con aviso al teléfono).
+## Lo único que espera tu palabra
+1. Veredicto de los espejos ("sí/no/era otra cosa") — destraba el título de comprensión.
+2. Confirmar tu diccionario personal (palabras "pendiente").
+3. "Sprint 2" para que Voznota crezca (etiquetas, respaldo).
 
-> Novedad de la auditoría: se corrió el primer testeo técnico completo. Se
-> encontraron 5 errores internos (ninguno te afectó), 4 ya están parchados y
-> todos quedaron anotados en el registro de errores para no repetirse. El
-> catálogo ahora incluye TODOS los puestos (asistente → técnico → profesional →
-> ingeniero → director) para cualquier oficio, y el traductor entregó su primera
-> síntesis de todo lo que pediste (corpus/comprension/sintesis-2026-07-16.md).
-
-## Qué existe y ya funciona
-
-- ✅ **El colegio entero está escrito** (archivos 01 a 14): niveles, materias,
-  exámenes, cómo se sube de grado, todas las ingenierías, la escalera educativa
-  completa (primaria → magíster → avanzado) y los modos de aprendizaje.
-- ✅ **El portero que te entiende** ya está instalado y probado 2 veces con tus
-  propios mensajes: recibe tu vómito verbal, lo separa, te muestra qué entendió
-  y despacha el trabajo. Tiene tu diccionario personal empezado.
-- ✅ **Tres empleados IA instalados:** el profesor fundador (escribe lecciones y
-  exámenes), el ingeniero de comprensión (el portero) y el traductor técnico
-  (te habla en humano).
-- ✅ **Cuatro herramientas instaladas** que se activan solas o escribiendo su
-  nombre: convertir un prompt en skill, generar lecciones, comprender primero.
-- ✅ **La primera lección del corpus** está escrita (sirve de molde para todas).
-- ✅ Todo está guardado en tu GitHub (pedido de cambios nº 2, abierto).
-
-## Qué está diseñado pero TODAVÍA NO prendido
-
-- ⏳ **Los loops automáticos** (la jornada escolar diaria): diseñados, pero no
-  arrancan hasta que fijes el tope de gasto diario. Es a propósito: sin tope, no
-  hay automático.
-- ⏳ **El resto de los ingenieros** (todas las facultades del catálogo): se abren
-  a medida que les des trabajo real, no antes.
-- ⏳ **El RAG / la IA propia**: es la etapa final del plan (archivo 06). Primero
-  hay que engordar el corpus con los loops.
-
-## Qué esperamos de vos (lo único)
-
-1. Decir "sí / no / era otra cosa" a los espejos que te muestra el portero.
-2. Confirmar las palabras marcadas "pendiente" en tu diccionario personal.
-3. Fijar el tope de gasto diario (un número; con eso prenden los loops).
-
-## El próximo paso natural
-
-El director firmó sus decretos (archivo 15): se congela el diseño nuevo y
-arranca la práctica. **La tesis de grado del colegio es construir Voznota de
-verdad** — la aplicación de notas de voz que da nombre a este repositorio.
-
-Cuando llegues a casa: abrí Claude Code en esta carpeta y decí
-"arranquen la tesis". Con eso el primer claustro se pone a construir Voznota
-y cada ingeniero empieza a ganarse sus promociones con trabajo real.
+## Enlaces para tu celular
+- App Voznota: https://claude.ai/code/artifact/b4d3b01c-d747-4004-94ed-a73a4db0784c
+- Tablero: https://claude.ai/code/artifact/e2ff6aaa-1487-45c1-8ade-5528a7953e6c
+- GitHub (PR #2): https://github.com/roxassgats-ship-it/Voznota/pull/2
