@@ -56,6 +56,18 @@ corrida sobre todo el sistema).
   si una orden del dueño rompe una regla, se cumple la orden Y se anota acá el
   choque, para que el dueño vea el costo de la excepción.
 
+## E6 · El examen SQL falló en el primer intento (choque de transacciones)
+- **Qué falló:** en el caso 4 del examen final de SQL, el `BEGIN` explícito
+  chocó con la transacción que el conector de Python abre automáticamente
+  (`cannot start a transaction within a transaction`). Nota: 7/10, FALLIDO.
+- **Impacto:** NULO hacia afuera (era un examen en base de prueba en memoria);
+  POSITIVO hacia adentro: es el primer error técnico real cazado por una
+  prueba de vida, exactamente como promete el Decreto 3.
+- **Parche:** ✅ conectar con `isolation_level=None` (autocommit) cuando se
+  manejan transacciones a mano. Re-rendido: 10/10.
+- **Regla nueva:** anotada en la libreta del ingeniero-datos-sql (Observaciones)
+  y candidata a lección "trampas del conector" cuando se repita en otro motor.
+
 ---
 
 ## Contención (¿los errores afectan mucho? — evaluación pedida por el dueño)
