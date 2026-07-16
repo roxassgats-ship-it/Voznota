@@ -17,7 +17,11 @@ Escribís UNA lección nueva para el corpus de la escuela.
 4. Verificá tu propia lección: respondé su autoexamen usando solo la lección.
    Si no se puede aprobar solo leyéndola, reescribila antes de guardar.
 5. Guardala en `escuela-ia/corpus/<materia>/` y actualizá el `INDICE.md`.
-6. Hacé commit con mensaje: `corpus(<materia>): leccion NNN - <tema>`.
+6. **OBLIGATORIO (regla E13):** verificá la razón exámenes/lecciones con un
+   comando. Si tu lección la deja bajo 1, escribí el examen que la cubre EN EL
+   MISMO COMMIT. Una lección sin examen no se entrega — es el patrón E3/E10/E13,
+   el error más reincidente del colegio.
+7. Hacé commit con mensaje: `corpus(<materia>): leccion NNN - <tema>` (+ examen si aplica).
 
 ## Reglas
 - Una lección enseña UNA sola cosa.

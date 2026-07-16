@@ -121,6 +121,20 @@ corrida sobre todo el sistema).
 - **Regla nueva:** los contadores del tablero salen SIEMPRE de comandos
   (glob/find/wc), nunca de memoria. Chequeo agregado a auditar-y-parchar.
 
+## E13 · SEGUNDA reincidencia del patrón E3/E10 (lección correctiva sin examen)
+- **Qué falló:** la lección "pruebas honestas" — irónicamente, la lección
+  correctiva sobre integridad — entró al corpus dejando la razón en 6/5. El
+  chequeo del ciclo lo cazó a los minutos.
+- **Impacto:** BAJO (cazado en el mismo ciclo), pero es la SEGUNDA reincidencia:
+  la regla en la auditoría no alcanzó, porque el error ocurre al PRODUCIR, no
+  al auditar.
+- **Parche:** ✅ examen de Evaluación básica escrito en el mismo commit (6/6) +
+  **parche de raíz: la skill generar-leccion ahora exige verificar la razón
+  por comando y crear el examen en el mismo commit** — la regla se movió del
+  auditor al productor, que es donde el error nace.
+- **Regla nueva (escalada final):** cuando un error reincide DOS veces, la regla
+  se instala dentro de la herramienta que lo produce, no en quien lo revisa.
+
 ---
 
 ## Contención (¿los errores afectan mucho? — evaluación pedida por el dueño)
