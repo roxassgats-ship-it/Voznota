@@ -6,5 +6,5 @@
 | 002 | Cruzar y resumir: JOIN y GROUP BY | media (30%) | técnico de datos |
 | 003 | No romper nada: transacciones, índices y consultas seguras | instituto (50%) | técnico de datos |
 
-Exámenes: examenes/examen-final-sql.md (básica→instituto, con ejecución real)
+Exámenes: examen-basica-sql · examen-media-sql · examen-final-sql (→instituto, rendido 10/10) · examen-universidad-sql (tramo 75%, trabajo real de la tesis)
 Mejores prácticas: mejores-practicas.md (nace con la primera tanda de trabajos)
