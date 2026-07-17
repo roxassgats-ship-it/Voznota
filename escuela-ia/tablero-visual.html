@@ -1,0 +1,158 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colegio de IA · Tablero</title>
+<style>
+  :root{
+    --papel:#F4F6F3; --tinta:#1E2A27; --tenue:#5C6B66; --linea:#D8DFDA;
+    --tarjeta:#FFFFFF; --acento:#17606B; --acento-suave:#E3EEEF;
+    --ok:#3E7A46; --alerta:#A87A1E; --critico:#A2402F;
+    --pizarra:#22433F; --tiza:#EAF2EF;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --papel:#131D1B; --tinta:#E3ECE8; --tenue:#93A59F; --linea:#2A3B37;
+      --tarjeta:#1B2926; --acento:#5FB0AC; --acento-suave:#1E3335;
+      --ok:#7CBA84; --alerta:#D4A94E; --critico:#D4776A;
+      --pizarra:#0E1716; --tiza:#DCE9E4; }
+  }
+  :root[data-theme="dark"]{ --papel:#131D1B; --tinta:#E3ECE8; --tenue:#93A59F; --linea:#2A3B37;
+    --tarjeta:#1B2926; --acento:#5FB0AC; --acento-suave:#1E3335;
+    --ok:#7CBA84; --alerta:#D4A94E; --critico:#D4776A; --pizarra:#0E1716; --tiza:#DCE9E4; }
+  :root[data-theme="light"]{ --papel:#F4F6F3; --tinta:#1E2A27; --tenue:#5C6B66; --linea:#D8DFDA;
+    --tarjeta:#FFFFFF; --acento:#17606B; --acento-suave:#E3EEEF;
+    --ok:#3E7A46; --alerta:#A87A1E; --critico:#A2402F; --pizarra:#22433F; --tiza:#EAF2EF; }
+
+  body{ background:var(--papel); color:var(--tinta);
+    font:15px/1.55 ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+    margin:0; padding:28px 20px 60px; }
+  .marco{ max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:22px; }
+  h1,h2{ font-family:"Iowan Old Style", Georgia, "Times New Roman", serif; text-wrap:balance; margin:0; }
+  h1{ font-size:1.7rem; font-weight:600; }
+  h2{ font-size:1.05rem; font-weight:600; margin-bottom:12px; }
+  .sello{ font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; color:var(--tenue); }
+  header{ background:var(--pizarra); color:var(--tiza); border-radius:10px; padding:22px 24px;
+    display:flex; flex-wrap:wrap; align-items:center; gap:20px 32px; }
+  header .sello{ color:var(--tiza); opacity:.75; }
+  .aro{ width:96px; height:96px; border-radius:50%; flex:none;
+    background:conic-gradient(var(--acento) calc(var(--p)*1%), rgba(255,255,255,.14) 0);
+    display:grid; place-items:center; }
+  :root[data-theme="light"] .aro, .aro{ }
+  .aro > div{ width:72px; height:72px; border-radius:50%; background:var(--pizarra);
+    display:grid; place-items:center; font-size:1.35rem; font-weight:700;
+    font-variant-numeric:tabular-nums; }
+  .tiles{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; flex:1; min-width:260px; }
+  .tile b{ display:block; font-size:1.5rem; font-variant-numeric:tabular-nums; }
+  .tile span{ font-size:.78rem; opacity:.75; }
+  .cols{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px; }
+  section{ background:var(--tarjeta); border:1px solid var(--linea); border-radius:10px; padding:18px 20px; }
+  .barra{ display:grid; grid-template-columns:150px 1fr 48px; align-items:center; gap:12px; margin:9px 0; font-size:.88rem; }
+  .barra .pista{ height:9px; border-radius:5px; background:var(--acento-suave); overflow:hidden; }
+  .barra .pista i{ display:block; height:100%; border-radius:5px; background:var(--acento); }
+  .barra em{ font-style:normal; text-align:right; font-variant-numeric:tabular-nums; color:var(--tenue); }
+  .envoltorio{ overflow-x:auto; }
+  table{ border-collapse:collapse; width:100%; font-size:.86rem; }
+  th{ text-align:left; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--tenue); font-weight:600; padding:6px 10px 6px 0; border-bottom:1px solid var(--linea); }
+  td{ padding:7px 10px 7px 0; border-bottom:1px solid var(--linea); vertical-align:top; }
+  td.n{ font-variant-numeric:tabular-nums; }
+  .chip{ display:inline-block; padding:2px 9px; border-radius:99px; font-size:.72rem; font-weight:600; }
+  .chip.ok{ background:color-mix(in srgb, var(--ok) 15%, transparent); color:var(--ok); }
+  .chip.alerta{ background:color-mix(in srgb, var(--alerta) 16%, transparent); color:var(--alerta); }
+  .chip.critico{ background:color-mix(in srgb, var(--critico) 15%, transparent); color:var(--critico); }
+  .chip.neutro{ background:var(--acento-suave); color:var(--acento); }
+  ul{ margin:0; padding-left:18px; } li{ margin:6px 0; font-size:.9rem; }
+  .cod{ font-family:ui-monospace, "SF Mono", Consolas, monospace; font-size:.8rem; color:var(--acento); }
+  footer{ font-size:.78rem; color:var(--tenue); text-align:center; }
+</style>
+
+<div class="marco">
+  <header>
+    <div class="aro" style="--p:55"><div>55%</div></div>
+    <div style="flex:1; min-width:220px">
+      <div class="sello">Escuela de IA · Voznota · acta final del 16 de julio 2026</div>
+      <h1>Avance general del colegio</h1>
+      <div style="opacity:.8; font-size:.9rem">Universidad SQL completa 5/5 · A/B medido: con colegio 10/10 vs sin colegio 7/10 · app publicada al celular · 2 automáticos corriendo · sucesión firmada.</div>
+    </div>
+    <div class="tiles">
+      <div class="tile"><b>6</b><span>agentes instalados</span></div>
+      <div class="tile"><b>4</b><span>skills instaladas</span></div>
+      <div class="tile"><b>7/8</b><span>lecciones / exámenes</span></div>
+      <div class="tile"><b>14/13</b><span>errores hallados / parchados</span></div>
+    </div>
+  </header>
+
+  <div class="cols">
+    <section>
+      <h2>Avance por área</h2>
+      <div class="barra"><span>Diseño del colegio</span><div class="pista"><i style="width:95%"></i></div><em>95%</em></div>
+      <div class="barra"><span>Comprensión del dueño</span><div class="pista"><i style="width:70%"></i></div><em>70%</em></div>
+      <div class="barra"><span>Automatización</span><div class="pista"><i style="width:55%"></i></div><em>55%</em></div>
+      <div class="barra"><span>Entrenamiento real</span><div class="pista"><i style="width:30%"></i></div><em>30%</em></div>
+      <div class="barra"><span>Corpus (meta 50 lecciones)</span><div class="pista"><i style="width:10%"></i></div><em>10%</em></div>
+      <div class="barra"><span>Tesis Voznota</span><div class="pista"><i style="width:25%"></i></div><em>25%</em></div>
+      <h2 style="margin-top:20px">Materias abiertas</h2>
+      <div class="barra"><span>Datos / SQL</span><div class="pista"><i style="width:75%"></i></div><em>75%</em></div>
+      <div class="barra"><span>Lenguaje y prompts</span><div class="pista"><i style="width:15%"></i></div><em>15%</em></div>
+      <div class="barra"><span>Calidad / QA</span><div class="pista"><i style="width:5%"></i></div><em>5%</em></div>
+      <div style="font-size:.8rem; color:var(--tenue); margin-top:8px">Las demás facultades del catálogo (09) se abren a demanda: 3+ tareas reales del mismo campo.</div>
+    </section>
+
+    <section>
+      <h2>Ranking de ingenieros (1–100, con evidencia)</h2>
+      <div class="envoltorio"><table>
+        <tr><th>Ingeniero</th><th>Nivel</th><th>Estado</th></tr>
+        <tr><td>ingeniero-datos-sql</td><td class="n">78</td><td><span class="chip ok">universidad COMPLETA 5/5 · su lección graduó a un alumno</span></td></tr>
+        <tr><td>profesor-fundador</td><td class="n">76</td><td><span class="chip ok">examen docente saldado · sucesión firmada</span></td></tr>
+        <tr><td>ingeniero-comprensión</td><td class="n">62</td><td><span class="chip alerta">espera tu veredicto (12 espejos)</span></td></tr>
+        <tr><td>traductor-técnico</td><td class="n">55</td><td><span class="chip ok">título básica + ganó el A/B (10 vs 7)</span></td></tr>
+        <tr><td>ingeniero-qa <span class="sello">inmigrante</span></td><td class="n">—</td><td><span class="chip neutro">ubicación 1/3 · cazó E11</span></td></tr>
+        <tr><td>ingeniero-software</td><td class="n">50</td><td><span class="chip ok">INSTITUTO por trabajo real (Voznota v1)</span></td></tr>
+      </table></div>
+      <h2 style="margin-top:20px">Importaciones (aduana)</h2>
+      <div class="envoltorio"><table>
+        <tr><th>Fuente</th><th>Piezas</th><th>Estado</th></tr>
+        <tr><td>VoltAgent · subagentes</td><td class="n">160</td><td><span class="chip ok">descargado y catalogado</span></td></tr>
+        <tr><td>VoltAgent · agent-skills</td><td class="n">608 enlaces</td><td><span class="chip neutro">índice de consulta</span></td></tr>
+        <tr><td>code-reviewer → ingeniero-qa</td><td class="n">1</td><td><span class="chip ok">adaptado (1er inmigrante)</span></td></tr>
+      </table></div>
+    </section>
+
+    <section>
+      <h2>Registro de errores (prueba y error)</h2>
+      <div class="envoltorio"><table>
+        <tr><th>Código</th><th>Qué falló</th><th>Estado</th></tr>
+        <tr><td class="cod">E1</td><td>skills fundadoras sin examen</td><td><span class="chip alerta">adeudado c/ vencimiento</span></td></tr>
+        <tr><td class="cod">E2·E7·E8·E9</td><td>rutas/reglas nombradas que no existían</td><td><span class="chip ok">parchados + regla</span></td></tr>
+        <tr><td class="cod">E3·E10</td><td>menos exámenes que lecciones (reincidió)</td><td><span class="chip ok">parchado → chequeo automático</span></td></tr>
+        <tr><td class="cod">E4·E5</td><td>grados por cargo · decreto vs dueño</td><td><span class="chip ok">reglados</span></td></tr>
+        <tr><td class="cod">E6</td><td>examen SQL: choque de transacciones</td><td><span class="chip ok">parchado, 2º intento 10/10</span></td></tr>
+      </table></div>
+      <h2 style="margin-top:20px">Procedimientos vivos</h2>
+      <ul>
+        <li>Comprender-primero ante cada mensaje en ráfaga (5 espejos hasta hoy).</li>
+        <li>Reparación autónoma: impacto bajo → se parcha solo y se registra (CLAUDE.md §2).</li>
+        <li>Prueba de vida: sin demostración ejecutada, no hay entrega.</li>
+        <li>Workflows: mejora continua · consulta RAG · jornada escolar (apagada).</li>
+        <li>Aduana de inmigración para todo lo importado de GitHub.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Lo que espera al dueño</h2>
+      <ul>
+        <li><b>✅ Tope fijado (10 sesiones/día)</b> — jornada automática PRENDIDA, diaria 08:00.</li>
+        <li><b>Veredicto de los espejos</b> — “sí / no / era otra cosa” a las 6 disecciones.</li>
+        <li><b>Confirmar el diccionario</b> — ~12 palabras tuyas marcadas “pendiente”.</li>
+        <li><b>✅ Tesis arrancada</b> — Voznota v1 funciona; sprint 2: etiquetas y duración.</li>
+      </ul>
+      <h2 style="margin-top:20px">Camino de ascenso en ingeniería</h2>
+      <div class="envoltorio"><table>
+        <tr><th>Peldaño</th><th>Dominio</th><th>SQL (ejemplo real)</th></tr>
+        <tr><td>Instituto</td><td class="n">50%</td><td><span class="chip ok">alcanzado 16-jul (titulado)</span></td></tr>
+        <tr><td>Universidad</td><td class="n">75%</td><td><span class="chip ok">ALCANZADO: 4/5 trabajos, benchmark 1.820x</span></td></tr>
+        <tr><td>Magíster</td><td class="n">100%</td><td>escribir el examen que otro apruebe + enseñar</td></tr>
+      </table></div>
+    </section>
+  </div>
+
+  <footer>Tablero del colegio · se regenera en cada auditoría · fuente de datos: corpus/actas/ (tablero, ranking, registro de errores)</footer>
+</div>

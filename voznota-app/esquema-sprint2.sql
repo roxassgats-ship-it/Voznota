@@ -1,0 +1,8 @@
+-- Esquema sprint 2 (PLANIFICADO, aun sin app que lo use - no aplicar hoy)
+-- duracion_seg en notas + etiquetas: se implementan cuando la orden del
+-- sprint 2 exista. Guardado aparte para no violar la peor practica #3
+-- ("nombrar lo que no existe"). Hallazgo QA, revision 2026-07-16.
+-- ALTER TABLE notas ADD COLUMN duracion_seg INTEGER DEFAULT 0;
+-- CREATE TABLE etiquetas (id INTEGER PRIMARY KEY, nombre TEXT NOT NULL UNIQUE);
+-- CREATE TABLE nota_etiqueta (nota_id INTEGER REFERENCES notas(id) ON DELETE CASCADE,
+--   etiqueta_id INTEGER REFERENCES etiquetas(id) ON DELETE CASCADE, PRIMARY KEY (nota_id, etiqueta_id));
